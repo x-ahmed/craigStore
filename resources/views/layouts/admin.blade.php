@@ -163,12 +163,16 @@
         data-col="2-columns">
 
         <!-- FIXED TOP-->
+        {{-- INCLUDE HEADER --}}
         @include('admin.includes.header')
-        <!-- ////////////////////////////////////////////////////////////////////////////-->
+        
+        {{-- INCLUDE SIDE-BAR --}}
         @include('admin.includes.side-bar')
 
+        {{-- DASHBOARD VIEW --}}
         @yield('content')
-        <!-- ////////////////////////////////////////////////////////////////////////////-->
+        
+        {{-- INCLUDE FOOTER --}}
         @include('admin.includes.footer')
 
         @notify_js

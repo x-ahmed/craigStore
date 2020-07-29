@@ -324,16 +324,16 @@
 
             <header id="header" class="header-3 sticky-menu">
 
-                {{-- Header Mobile --}}
+                {{-- INCLUDE HEADER-MOBILE --}}
                 @include('user.includes.header-mobile')
 
-                {{-- Header Top --}}
+                {{-- INCLUDE HEADER-TOP --}}
                 @include('user.includes.header-top')
 
-                {{-- Header Center --}}
+                {{-- INCLUDE HEADER-CENTER --}}
                 @include('user.includes.header-center')
 
-                {{-- Header Bottom --}}
+                {{-- INCLUDE HEADER-BOTTOM --}}
                 @include('user.includes.header-bottom')
 
             </header>
@@ -360,13 +360,13 @@
             <div id="wrapper-site">
                 <div id="content-wrapper" class="full-width">
 
-                    {{-- Layout Content --}}
+                    {{-- USER HOME VIEW --}}
                     @yield('content')
 
                 </div>
             </div>
 
-            {{-- Footer --}}
+            {{-- INCLUDE FOOTER --}}
             @include('user.includes.footer')
 
             <div class="canvas-overlay"></div>
@@ -454,22 +454,86 @@
                 <div id="box-language" class="box-content d-flex">
                     <div class="w-100">
                         <div class="item-language">
-                            <a href="http://demo.bestprestashoptheme.com/savemart/en/?home=home_3&SubmitCurrency=1&id_currency=1" class="d-flex align-items-center"><img class="img-fluid mr-2" src="/savemart/img/l/1.jpg" alt="English (English)" width="16" height="11" /><span>English</span></a>
+                            <a
+                                href="http://demo.bestprestashoptheme.com/savemart/en/?home=home_3&SubmitCurrency=1&id_currency=1"
+                                class="d-flex align-items-center">
+                                
+                                <img
+                                    class="img-fluid mr-2"
+                                    src="/savemart/img/l/1.jpg"
+                                    alt="English (English)"
+                                    width="16"
+                                    height="11" />
+                                <span>English</span>
+                            </a>
                         </div>
                         <div class="item-language">
-                            <a href="http://demo.bestprestashoptheme.com/savemart/fr/?home=home_3&SubmitCurrency=1&id_currency=1" class="d-flex align-items-center"><img class="img-fluid mr-2" src="/savemart/img/l/2.jpg" alt="Français (French)" width="16" height="11" /><span>Français</span></a>
+                            <a
+                                href="http://demo.bestprestashoptheme.com/savemart/fr/?home=home_3&SubmitCurrency=1&id_currency=1"
+                                class="d-flex align-items-center">
+                                
+                                <img
+                                    class="img-fluid mr-2"
+                                    src="/savemart/img/l/2.jpg"
+                                    alt="Français (French)"
+                                    width="16"
+                                    height="11" />
+                                <span>Français</span></a>
                         </div>
                         <div class="item-language">
-                            <a href="http://demo.bestprestashoptheme.com/savemart/es/?home=home_3&SubmitCurrency=1&id_currency=1" class="d-flex align-items-center"><img class="img-fluid mr-2" src="/savemart/img/l/3.jpg" alt="Español (Spanish)" width="16" height="11" /><span>Español</span></a>
+                            <a
+                                href="http://demo.bestprestashoptheme.com/savemart/es/?home=home_3&SubmitCurrency=1&id_currency=1"
+                                class="d-flex align-items-center">
+                                
+                                <img
+                                    class="img-fluid mr-2"
+                                    src="/savemart/img/l/3.jpg"
+                                    alt="Español (Spanish)"
+                                    width="16"
+                                    height="11" />
+                                <span>Español</span></a>
                         </div>
                         <div class="item-language">
-                            <a href="http://demo.bestprestashoptheme.com/savemart/it/?home=home_3&SubmitCurrency=1&id_currency=1" class="d-flex align-items-center"><img class="img-fluid mr-2" src="/savemart/img/l/4.jpg" alt="Italiano (Italian)" width="16" height="11" /><span>Italiano</span></a>
+                            <a
+                                href="http://demo.bestprestashoptheme.com/savemart/it/?home=home_3&SubmitCurrency=1&id_currency=1"
+                                class="d-flex align-items-center">
+                                
+                                <img
+                                    class="img-fluid mr-2"
+                                    src="/savemart/img/l/4.jpg"
+                                    alt="Italiano (Italian)"
+                                    width="16"
+                                    height="11" />
+                                <span>Italiano</span>
+                            </a>
                         </div>
                         <div class="item-language">
-                            <a href="http://demo.bestprestashoptheme.com/savemart/pl/?home=home_3&SubmitCurrency=1&id_currency=1" class="d-flex align-items-center"><img class="img-fluid mr-2" src="/savemart/img/l/5.jpg" alt="Polski (Polish)" width="16" height="11" /><span>Polski</span></a>
+                            <a
+                                href="http://demo.bestprestashoptheme.com/savemart/pl/?home=home_3&SubmitCurrency=1&id_currency=1"
+                                class="d-flex align-items-center">
+                                
+                                <img
+                                    class="img-fluid mr-2"
+                                    src="/savemart/img/l/5.jpg"
+                                    alt="Polski (Polish)"
+                                    width="16"
+                                    height="11" />
+                                <span>Polski</span>
+                            </a>
                         </div>
                         <div class="item-language current">
-                            <a href="http://demo.bestprestashoptheme.com/savemart/ar/?home=home_3&SubmitCurrency=1&id_currency=1" class="d-flex align-items-center"><img class="img-fluid mr-2" src="/savemart/img/l/6.jpg" alt="اللغة العربية (Arabic)" width="16" height="11" /><span>اللغة العربية</span></a>
+                            <a
+                                href="http://demo.bestprestashoptheme.com/savemart/ar/?home=home_3&SubmitCurrency=1&id_currency=1"
+                                class="d-flex align-items-center">
+                                
+                                <img
+                                    class="img-fluid mr-2"
+                                    src="/savemart/img/l/6.jpg"
+                                    alt="اللغة العربية (Arabic)"
+                                    width="16"
+                                    height="11" />
+                                <span>اللغة العربية</span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -477,17 +541,39 @@
             </div>
         </div>
 
-        <div id="stickymenu_bottom_mobile" class="d-flex align-items-center justify-content-center hidden-md-up text-center">
-            <div class="stickymenu-item"><a href="http://demo.bestprestashoptheme.com/savemart/"><i class="zmdi zmdi-home"></i><span>Home</span></a></div>
-            <div class="stickymenu-item"><a href="#" class="js-btn-search"><i class="zmdi zmdi-search"></i><span>Search</span></a></div>
+        <div
+            id="stickymenu_bottom_mobile"
+            class="d-flex align-items-center justify-content-center hidden-md-up text-center">
+
+            <div class="stickymenu-item">
+                <a href="http://demo.bestprestashoptheme.com/savemart/">
+                    <i class="zmdi zmdi-home"></i><span>Home</span>
+                </a>
+            </div>
+            <div class="stickymenu-item">
+                <a href="#" class="js-btn-search">
+                    <i class="zmdi zmdi-search"></i><span>Search</span>
+                </a>
+            </div>
             <div class="stickymenu-item">
                 <div id="_mobile_cart_bottom" class="nov-toggle-page" data-target="#mobile-blockcart"></div>
             </div>
-            <div class="stickymenu-item"><a href="http://demo.bestprestashoptheme.com/savemart/ar/module/novblockwishlist/mywishlist"><i class="zmdi zmdi-favorite-outline"></i><span>Wishlist</span></a></div>
-            <div class="stickymenu-item"><a href="#" class="nov-toggle-page" data-target="#mobile-pageaccount"><i class="zmdi zmdi-account-o"></i><span>Account</span></a></div>
+            <div class="stickymenu-item">
+                <a href="http://demo.bestprestashoptheme.com/savemart/ar/module/novblockwishlist/mywishlist">
+                    <i class="zmdi zmdi-favorite-outline"></i><span>Wishlist</span>
+                </a>
+            </div>
+            <div class="stickymenu-item">
+                <a href="#" class="nov-toggle-page" data-target="#mobile-pageaccount">
+                    <i class="zmdi zmdi-account-o"></i><span>Account</span>
+                </a>
+            </div>
+
         </div>
 
-        <script type="text/javascript" src="http://demo.bestprestashoptheme.com/savemart/themes/vinova_savemart/assets/cache/bottom-3c96ed23.js"></script>
+        <script
+            type="text/javascript"
+            src="http://demo.bestprestashoptheme.com/savemart/themes/vinova_savemart/assets/cache/bottom-3c96ed23.js"></script>
 
     </body>
 

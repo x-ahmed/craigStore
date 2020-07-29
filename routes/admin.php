@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Middleware\RedirectIfAuthenticated;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,10 +19,46 @@ use Illuminate\Support\Facades\Route;
     return view('welcome');
 }); */
 
-Route::get('/admin', function () {
-    return view('admin.dashboard');
-});
+/* 
+** prefix: admin is predefined inside RouteServiceProvider
+** which is implemented befor the whole admin routes
+*/
 
-Auth::routes();
+// ADMIN DASHBOARD
+Route::group(
+    [
+        'middleware' => 'auth:admin',
+        'namespace' => 'Admin'
+    ],
+    function () {
 
-Route::get('/home', 'HomeController@index')->name('home');
+        Route::get(
+            '/',
+            'DashboardController@index'
+        )->name('admin.dashboard');
+    }
+);
+
+// ADMIN LOGIN
+Route::group(
+    [
+        'middleware' => 'guest:admin',
+        'namespace' => 'Admin'
+    ],
+    function () {
+
+        Route::get(
+            'login',
+            'LoginsController@showLogin'
+        )->name('get.admin.login');
+
+        Route::post(
+            'login',
+            'LoginsController@login'
+        )->name('post.admin.login');
+    }
+);
+
+// Auth::routes();
+
+// Route::get('/home', 'HomeController@index')->name('home');
