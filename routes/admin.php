@@ -49,12 +49,31 @@ Route::group(
                     'prefix' => 'languages'
                 ],
                 function () {
+
+                    // ADMIN LANGUAGES TABLE
                     Route::get(
                         '/',
                         'LanguagesController@index'
                     )->name('admin.languages');
-            }
-        );
+
+                    // ADMIN LANGUAGE CREATE
+                    Route::get(
+                        'create',
+                        'LanguagesController@create'
+                    )->name('admin.language.create');
+                    // ADMIN LANGUAGE SAVE
+                    Route::post(
+                        'save',
+                        'LanguagesController@save'
+                    )->name('admin.language.save');
+
+                    // ADMIN LANGUAGE EDIT
+                    Route::get(
+                        'edit/{lang_id}',
+                        'LanguagesController@edit'
+                    )->name('admin.language.edit');
+                }
+            );
         ####################################### END LANGUAGES ROUTE #######################################
 
     }

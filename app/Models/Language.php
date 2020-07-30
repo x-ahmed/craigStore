@@ -51,10 +51,19 @@ class Language extends Model
     public function scopeSelection($query)
     {
         return $query->select(
+            'id',
             'abbr',
             'name',
             'direction',
             'status'
         );
     }
+
+    // STATUS ACCESSOR
+    public function getStatusAttribute($val)
+    {
+        // ACTIVE FOR 1 AND PENDING FOR 0
+        return $val == 1? 'Active': 'Pending';
+    }
+
 }

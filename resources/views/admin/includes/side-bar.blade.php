@@ -10,11 +10,11 @@
                      data-menu="menu-navigation">
 
                      <li class="nav-item active">
-                            <a href="">
+                            <a href="{{route('admin.dashboard')}}">
                                    <i class="la la-mouse-pointer"></i>
                                    <span
                                           class="menu-title"
-                                          data-i18n="nav.add_on_drag_drop.main">الرئيسية</span>
+                                          data-i18n="nav.add_on_drag_drop.main">الرئيسيه</span>
                             </a>
                      </li>
 
@@ -36,7 +36,7 @@
                                    <li>
                                           <a
                                                  class="menu-item"
-                                                 href=""
+                                                 href="{{route('admin.language.create')}}"
                                                  data-i18n="nav.dash.crypto">اضافة لغه جديده</a>
                                    </li>
                             </ul>

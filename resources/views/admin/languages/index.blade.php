@@ -13,7 +13,12 @@
                             <li class="breadcrumb-item">
                                 <a href="{{route('admin.dashboard')}}">الرئيسية</a>
                             </li>
-                            <li class="breadcrumb-item active">اللغات</li>
+                            <li class="breadcrumb-item active">
+                                <a href="{{route('admin.languages')}}">اللغات</a>
+                            </li>
+                            <li class="breadcrumb-item active">
+                                <a href="{{route('admin.language.create')}}">اضافة لغه جديده</a>
+                            </li>
                         </ol>
                     </div>
                 </div>
@@ -72,16 +77,16 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                            
+
                                         {{-- DB LANGUAGES --}}
                                         @isset($langs)
                                             @foreach($langs as $lang)
                                             
                                                 <tr>
-                                                    <td>{{$lang -> name}}</td>
-                                                    <td>{{$lang -> abbr}}</td>
-                                                    <td>{{$lang -> direction}}</td>
-                                                    <td>{{$lang -> active()}}</td>
+                                                    <td>{{$lang->name}}</td>
+                                                    <td>{{$lang->abbr}}</td>
+                                                    <td>{{$lang->direction}}</td>
+                                                    <td>{{$lang->status}}</td>
                                                     <td>
                                                         <div
                                                             class="btn-group"
@@ -89,7 +94,7 @@
                                                             aria-label="Basic example">
                                                             
                                                             <a
-                                                                href="{{route('admin.languages.edit',$lang -> id)}}"
+                                                                {{-- href="{{route('admin.language.edit', $lang->id)}}" --}}
                                                                 class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">
                                                                 
                                                                 <span>تعديل اللغه</span>
@@ -97,7 +102,7 @@
 
 
                                                             <a
-                                                                href="{{route('admin.languages.delete',$lang -> id)}}"
+                                                                {{-- href="{{route('admin.language.delete', $lang->id)}}" --}}
                                                                 class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">
                                                             
                                                                 <span>حذف اللغه</span>
