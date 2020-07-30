@@ -15,6 +15,12 @@ use App\Http\Middleware\RedirectIfAuthenticated;
 |
 */
 
+// PAGINATION COUNT
+define(
+    'PAGINATION_COUNT',
+    10
+);
+
 /* Route::get('/', function () {
     return view('welcome');
 }); */
@@ -36,6 +42,21 @@ Route::group(
             '/',
             'DashboardController@index'
         )->name('admin.dashboard');
+
+        ####################################### START LANGUAGES ROUTE #######################################
+            Route::group(
+                [
+                    'prefix' => 'languages'
+                ],
+                function () {
+                    Route::get(
+                        '/',
+                        'LanguagesController@index'
+                    )->name('admin.languages');
+            }
+        );
+        ####################################### END LANGUAGES ROUTE #######################################
+
     }
 );
 
