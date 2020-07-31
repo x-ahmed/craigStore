@@ -17,8 +17,8 @@ use App\Http\Middleware\RedirectIfAuthenticated;
 
 // PAGINATION COUNT
 define(
-    'PAGINATION_COUNT',
-    10
+    'PAGINATION_COUNT',     // PAGINATION CONSTANT
+    5                       // PAGINATION VLAUE
 );
 
 /* Route::get('/', function () {
@@ -26,52 +26,64 @@ define(
 }); */
 
 /* 
-** prefix: admin is predefined inside RouteServiceProvider
-** which is implemented befor the whole admin routes
+** PREFIX: "admin" IS PREDEFINED INSIDE "RouteServiceProvider"
+** WHICH IS IMPLEMENTED BEFORE THE WHOLE ADMIN ROUTES
 */
 
-// ADMIN DASHBOARD
-Route::group(
+Route::group(   // AUTHORIZED ADMIN ROUTES GROUP
     [
-        'middleware' => 'auth:admin',
-        'namespace' => 'Admin'
+        'middleware' => 'auth:admin',   // AUTHORIZED ADMIN GUARD MIDDLEWARE
+        'namespace' => 'Admin'          // ADMIN CONTROLLERS NAMESPACE
     ],
     function () {
 
+        // DASHBOARD ROUTE
         Route::get(
             '/',
             'DashboardController@index'
         )->name('admin.dashboard');
 
         ####################################### START LANGUAGES ROUTE #######################################
-            Route::group(
+            Route::group(   // LANGUAGES ROUTES GROUP
                 [
                     'prefix' => 'languages'
                 ],
                 function () {
 
-                    // ADMIN LANGUAGES TABLE
+                    // MAIN TABLE ROUTE
                     Route::get(
                         '/',
                         'LanguagesController@index'
                     )->name('admin.languages');
 
-                    // ADMIN LANGUAGE CREATE
+                    // CREATE FORM ROUTE
                     Route::get(
                         'create',
                         'LanguagesController@create'
                     )->name('admin.language.create');
-                    // ADMIN LANGUAGE SAVE
+                    // SAVE FORM ROUTE
                     Route::post(
                         'save',
                         'LanguagesController@save'
                     )->name('admin.language.save');
 
-                    // ADMIN LANGUAGE EDIT
+                    // EDIT FORM ROUTE
                     Route::get(
                         'edit/{lang_id}',
                         'LanguagesController@edit'
                     )->name('admin.language.edit');
+                    // UPDATE FORM ROUTE
+                    Route::post(
+                        'update/{lang_id}',
+                        'LanguagesController@update'
+                    )->name('admin.language.update');
+
+                    // DELETE ROUTE
+                    Route::get(
+                        'delete/{lang_id}',
+                        'LanguagesController@destroy'
+                    )->name('admin.language.delete');
+
                 }
             );
         ####################################### END LANGUAGES ROUTE #######################################
@@ -79,19 +91,19 @@ Route::group(
     }
 );
 
-// ADMIN LOGIN
-Route::group(
+Route::group(   // GUEST ADMIN ROUTES GROUP
     [
-        'middleware' => 'guest:admin',
-        'namespace' => 'Admin'
+        'middleware' => 'guest:admin',      // GUEST ADMIN GUARD MIDDLEWARE
+        'namespace' => 'Admin'              // ADMIN CONTROLLERS NAMESPACE
     ],
     function () {
 
+        // LOGIN FROM ROUTE
         Route::get(
             'login',
             'LoginsController@showLogin'
         )->name('get.admin.login');
-
+        // LOGIN ATTEMPT ROUTE
         Route::post(
             'login',
             'LoginsController@login'

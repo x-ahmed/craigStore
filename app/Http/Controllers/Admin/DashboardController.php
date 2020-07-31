@@ -10,6 +10,7 @@ class DashboardController extends Controller
     // SHOW DASHBOARD VIEW.
     public function index()
     {
+        // ADMIN DASHBOARD VIEW
         return view('admin.dashboard');
     }
 }

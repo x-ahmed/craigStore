@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Admin Dashboard')
+@section('title', 'Languages')
 
 @section('content')
 <div class="app-content content">
@@ -86,7 +86,7 @@
                                                     <td>{{$lang->name}}</td>
                                                     <td>{{$lang->abbr}}</td>
                                                     <td>{{$lang->direction}}</td>
-                                                    <td>{{$lang->status}}</td>
+                                                    <td>{{$lang->getStatus()}}</td>
                                                     <td>
                                                         <div
                                                             class="btn-group"
@@ -94,7 +94,7 @@
                                                             aria-label="Basic example">
                                                             
                                                             <a
-                                                                {{-- href="{{route('admin.language.edit', $lang->id)}}" --}}
+                                                                href="{{route('admin.language.edit', $lang->id)}}"
                                                                 class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">
                                                                 
                                                                 <span>تعديل اللغه</span>
@@ -102,7 +102,7 @@
 
 
                                                             <a
-                                                                {{-- href="{{route('admin.language.delete', $lang->id)}}" --}}
+                                                                href="{{route('admin.language.delete', $lang->id)}}"
                                                                 class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">
                                                             
                                                                 <span>حذف اللغه</span>
@@ -111,8 +111,11 @@
                                                     </td>
                                                 </tr>
                                             @endforeach
-                                        @endisset
 
+                                            {!! $langs->links() !!}
+
+                                        @endisset
+                                        
                                         </tbody>
                                     </table>
                                     <div class="justify-content-center d-flex">

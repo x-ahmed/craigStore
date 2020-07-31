@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
-
+use Request;
 class Authenticate extends Middleware
 {
     /**
@@ -19,7 +19,7 @@ class Authenticate extends Middleware
         // }
 
         if (! $request->expectsJson()) {
-            if ($request->is('admin/*')) {
+            if (Request::is('admin/*')) {
                 return route('get.admin.login');
             } else {
                 return route('login');

@@ -17,7 +17,7 @@ class LanguagesController extends Controller
         // ALL LANGUAGES FROM DB
         $langs = Language::selection()->paginate(PAGINATION_COUNT);
 
-        // LANGUAGES VIEW.
+        // LANGUAGES MAIN TABLE VIEW.
         return view(
             'admin.languages.index',
             compact('langs')
@@ -33,7 +33,7 @@ class LanguagesController extends Controller
         );
     }
 
-    // STORE LANGUAGE IN DB AFTER VALIDATION
+    // STORE A LANGUAGE IN DB AFTER VALIDATION
     public function save(LanguageRequest $request)
     {
         // Language::create($request->except(['_token']));
@@ -48,13 +48,13 @@ class LanguagesController extends Controller
                 'status'    => $request->input('lang-stat')     // LANGUAGE STATUS
             ]);
 
-            // REDIRECT TO LANGUAGES MAIN TABLE WITH SUCCESS MESSAGE
+            // REDIRECT TO LANGUAGES MAIN TABLE VIEW WITH SUCCESS MESSAGE
             return redirect()->route('admin.languages')->with([
                 'success' => 'Stored Successfully'
             ]);
 
         } catch (\Throwable $th) {
-            // REDIRECT TO LANGUAGES MAIN TABLE WITH ERROR MESSAGE
+            // REDIRECT TO LANGUAGES MAIN TABLE VIEW WITH ERROR MESSAGE
             return redirect()->route('admin.languages')->with([
                 'error' => 'Something went terribly wrong'
             ]);
@@ -62,18 +62,110 @@ class LanguagesController extends Controller
 
     }
 
-    // SHOW EDIT LANGUAGE FORM
-    // public function edit($lang_id)
-    // {
-    //     // DB LANGUAGE OF AN ID
-    //     $lang = Language::find($lang_id)->selection();
+    // SHOW EDIT A LANGUAGE FORM
+    public function edit($lang_id)
+    {
         
+        // DB LANGUAGE OF AN ID
+        $lang = Language::selection()->find($lang_id);
 
-    //     // EDIT LANGUAGE FORM
-    //     return view(
-    //         'admin.languages.edit',
-    //         compact('lang')
-    //     );
-    // }
+        // DB LANGUAGE NOT EXIST CHECK
+        if (!$lang) {
+            // REDIRECT TO LANGUAGES MAIN TABLE VIEW WITH ERROR MESSAGE
+            return redirect()->route('admin.languages')->with([
+                'error' => 'No such language'
+            ]);
+        }
+        
+        // EDIT LANGUAGE FORM
+        return view(
+            'admin.languages.edit',
+            compact('lang')     // LANGUAGE OBJECT
+        );
+    }
+
+    // UPDATE A LANGUAGE IN DB
+    public function update(LanguageRequest $request, $lang_id)
+    {
+
+        try {
+
+            // DB LANGUAGE OF AN ID
+            $lang = Language::find($lang_id);
+
+            // DB LANGUAGE NOT EXIST CHECK
+            if (!$lang) {
+                // REDIRECT TO LANGUAGES MAIN TABLE VIEW WITH ERROR MESSAGE
+                return redirect()->route('admin.language.edit', $lang_id)->with([
+                    'error' => 'No such language'
+                ]);
+            }
+
+            // if (!$request->has('lang-stat')) {
+            //     $langStatus = $request->request/*()*/->add([
+            //         'status' => 0
+            //     ]);
+            // } else {
+            //     $langStatus = $request->input('lang-stat');
+            // }
+            
+
+            // UPDATE A LANGUAGE ROW
+            $lang->update([
+                'name'      => $request->input('lang-name'),    // LANGUAGE NAME
+                'abbr'      => $request->input('lang-abbr'),    // LANGUAGE ABBREVIATION
+                'direction' => $request->input('lang-dire'),    // LANGUAGE DIRECTION
+                'status'    => $request->input('lang-stat')    // LANGUAGE STATUS
+            ]);
+
+            // REDIRECT TO THE LANGUAGES MAIN TABLE VIEW WITH A SUCCESS MESSAGE
+            return redirect()->route('admin.languages')->with([
+                'success' => 'Updated Successfully'
+            ]);
+
+        } catch (\Throwable $th) {
+
+            // REDIRECT TO LANGUAGES MAIN TABLE VIEW WITH ERROR MESSAGE
+            return redirect()->route('admin.languages')->with([
+                'error' => 'Something went terribly wrong'
+            ]);
+        }
+
+    }
+
+    // DELETE A LANGUAGE FROM DB
+    public function destroy($lang_id)
+    {
+
+        try {
+            // DB LANGUAGE OF AN ID
+            $lang = Language::find($lang_id);
+
+            // DB LANGUAGE NOT EXIST CHECK
+            if (!$lang) {
+
+                // REDIRECT TO LANGUAGES MAIN TABLE VIEW WITH ERROR MESSAGE
+                return redirect()->route('admin.languages')->with([
+                    'error' => 'No such language'
+                ]);
+            }
+    
+            // DELETE A LANGUAGE ROW
+            $lang->delete();
+    
+            // REDIRECT TO THE LANGUAGES MAIN TABLE VIEW WITH SUCCESS MESSAGE
+            return redirect()->route('admin.languages')->with([
+                'success' => 'Deleted Successfully'
+            ]);
+
+        } catch (\Throwable $th) {
+
+            // RETURN TO THE LANGUAGES MAIN TABLE VIEW WITH ERROR MESSAGE
+            return redirect()->route('admin.languages')->with([
+                'error' => 'Something went terribly wrong'
+            ]);
+        }
+
+    }
 
 }

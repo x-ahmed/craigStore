@@ -59,11 +59,45 @@ class Language extends Model
         );
     }
 
+    // NAME MUTATOR
+    public function setNameAttribute($val)
+    {
+        // CONVERT LANGUAGE NAME FIRST LETTER TO UPPERCASE
+        $this->attributes['name'] = ucfirst($val);
+    }
+    
+    // ABBREVIATION MUTATOR
+    public function setAbbrAttribute($val)
+    {
+        // CONVERT THE LANGUAGE ABBREVIATION TO UPPERCASE
+        $this->attributes['abbr'] = strtoupper($val);
+    }
+
+    /*
+    ** CHANGED FROM AN ACCESSOR TO
+    ** NORMAL METHOD AS THE ACCESSOR
+    ** IS NOT WORKING FOR THE IF CONDITION
+    ** IN THE EDIT FORM WITH THE CHECKBOX INPUT
+    */
+    
     // STATUS ACCESSOR
-    public function getStatusAttribute($val)
+    public function getStatus()
     {
         // ACTIVE FOR 1 AND PENDING FOR 0
-        return $val == 1? 'Active': 'Pending';
+        return $this->status == 1? 'Active': 'Pending';
+    }
+
+    /*
+    ** ASSIGNS MESSAGES FOR THE DB VALUE
+    ** WHERE "ltr" MESSAGE IS "From left to right"
+    ** AND "rtl" MESSAGE IS "From right to left"
+    */
+
+    // DIRECTION ACCESSOR
+    public function getDirectionAttribute($val)
+    {
+        // RETURN THE ASSIGNED MESSAGES
+        return $val == "ltr"? 'From left to right': 'From right to left';
     }
 
 }

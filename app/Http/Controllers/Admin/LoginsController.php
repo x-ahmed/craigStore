@@ -11,24 +11,29 @@ class LoginsController extends Controller
     // SHOW LOGIN VIEW.
     public function showLogin()
     {
+        // LOGIN FORM VIEW
         return view('admin.auth.login');
     }
 
-    // LOG THE USER IN DASHBOARD
+    // LOG THE ADMIN & REDIRECT TO  DASHBOARD
     public function login(LoginRequest $request)
     {   
-        // REMEMBER ME CHECK
+        // REMEMBER ME CHECKBOX
         $rememberMe = $request->has('remember-me')? true: false;
 
+        // EMAIL & PASSWORD DB EXISTANCE CHECK
         if (
+            // AUTHORIZED ADMIN GUARDED CHECK
             auth()->guard('admin')->attempt([
-                'email' => $request->input('email'),
-                'password' => $request->input('password')
+                'email'     => $request->input('email'),        // ADMIN EMAIL
+                'password'  => $request->input('password')      // ADMIN PASSWORD
             ])
         ) {
+            // REDIRECT TO ADMIN DASHBOARD VIEW
             return redirect()->route('admin.dashboard');
         }
 
+        // REDIRECT BACK TO LOGIN PAGE WITH ERROR MESSAGE
         return redirect()->back()->with([
             'error' => 'No such admin'
         ]);

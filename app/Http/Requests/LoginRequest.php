@@ -24,10 +24,12 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            // VALIDATION RULES
-            'email' => 'required|email',
-            'password' => 'required',
+            // VALIDATION RULES ADMIN LOGIN
+            'email' => 'required|email',    // ADMIN EMAIL
+            'password' => 'required',       // ADMIN PASSWORD
+            
         ];
+
     }
 
     /**
@@ -38,10 +40,12 @@ class LoginRequest extends FormRequest
     public function messages()
     {
         return [
-            // VALIDATION MESSAGES
-            'email.required' => 'Email is a mendatory input',
-            'email.email' => 'Please enter a valid email',
-            'password.required' => 'Password is a mandatory input',
+            // VALIDATION MESSAGES OF ADMIN LOGIN
+            'email.required' => 'Email is a mendatory input',           // ADMIN REQUIRED EMAIL MESSAGE
+            'email.email' => 'Please enter a valid email',              // ADMIN INVALID EMAIL TYPE MESSAGE
+            'password.required' => 'Password is a mandatory input',     // ADMIN REQUIRED PASSWORD MESSAGE
         ];
+
     }
+
 }
