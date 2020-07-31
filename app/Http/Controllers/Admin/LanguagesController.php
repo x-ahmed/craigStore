@@ -39,13 +39,34 @@ class LanguagesController extends Controller
         // Language::create($request->except(['_token']));
 
         try {
+
+            // PENDEING STATUS CHECK
+            if (!$request->has('lang-stat')) {
+
+                // SET THE STATUS VALUE TO BE ZERO
+                $langStatus = array_merge(  // MERGE THE REQUEST AS A COLLECTION TO AN ARRAY
+                    $request->all(),        // REQUEST COLLECTION
+                    [
+                        'status' => 0       // ADD STATUS OF ZERO TO THE CREATED ARRAY
+                    ]
+                )['status'];                // RETRIEVE THE VALUE OF THE STATUS KEY FROM THE PREVIOUS ARRAY
+                
+                // $langStatus = $request->merge(['status' => 0])['status'];    // DOES THE SAME OPERATION.
+            } else {
+
+                // CONVERT THE HTML STRING STATUS VALUE TO BE AN INTEGER VALUE
+                $langStatus = intval(
+                    $request->input('lang-stat')
+                );
+            }
+
             // CREATE NEW LANGUAGE ROW
             Language::create([
                 // LANGUAGE TABLE COLUMNS
                 'name'      => $request->input('lang-name'),    // LANGUAGE NAME
                 'abbr'      => $request->input('lang-abbr'),    // LANGUAGE ABBREVIATION
                 'direction' => $request->input('lang-dire'),    // LANGUAGE DIRECTION
-                'status'    => $request->input('lang-stat')     // LANGUAGE STATUS
+                'status'    => $langStatus                      // LANGUAGE STATUS
             ]);
 
             // REDIRECT TO LANGUAGES MAIN TABLE VIEW WITH SUCCESS MESSAGE
@@ -101,21 +122,32 @@ class LanguagesController extends Controller
                 ]);
             }
 
-            // if (!$request->has('lang-stat')) {
-            //     $langStatus = $request->request/*()*/->add([
-            //         'status' => 0
-            //     ]);
-            // } else {
-            //     $langStatus = $request->input('lang-stat');
-            // }
-            
+            // PENDEING STATUS CHECK
+            if (!$request->has('lang-stat')) {
 
+                // SET THE STATUS VALUE TO BE ZERO
+                $langStatus = array_merge(  // MERGE THE REQUEST AS A COLLECTION TO AN ARRAY
+                    $request->all(),        // REQUEST COLLECTION
+                    [
+                        'status' => 0       // ADD STATUS OF ZERO TO THE CREATED ARRAY
+                    ]
+                )['status'];                // RETRIEVE THE VALUE OF THE STATUS KEY FROM THE PREVIOUS ARRAY
+                
+                // $langStatus = $request->merge(['status' => 0])['status'];    // DOES THE SAME OPERATION.
+            } else {
+
+                // CONVERT THE HTML STRING STATUS VALUE TO BE AN INTEGER VALUE
+                $langStatus = intval(
+                    $request->input('lang-stat')
+                );
+            }
+            
             // UPDATE A LANGUAGE ROW
             $lang->update([
                 'name'      => $request->input('lang-name'),    // LANGUAGE NAME
                 'abbr'      => $request->input('lang-abbr'),    // LANGUAGE ABBREVIATION
                 'direction' => $request->input('lang-dire'),    // LANGUAGE DIRECTION
-                'status'    => $request->input('lang-stat')    // LANGUAGE STATUS
+                'status'    => $langStatus                      // LANGUAGE STATUS
             ]);
 
             // REDIRECT TO THE LANGUAGES MAIN TABLE VIEW WITH A SUCCESS MESSAGE

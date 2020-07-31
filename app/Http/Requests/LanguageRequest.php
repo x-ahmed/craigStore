@@ -28,7 +28,7 @@ class LanguageRequest extends FormRequest
             'lang-name' => 'required|string|max:100',   // LANGUAGE NAME
             'lang-abbr' => 'required|string|max:10',    // LANGUAGE ABBREVIATION
             'lang-dire' => 'required|in:ltr,rtl',       // LANGUAGE DIRECTION
-            'lang-stat' => 'required|in:0,1',           // LANGUAGE STATUS
+            'lang-stat' => 'in:0,1',                    // LANGUAGE STATUS
         ];
     }
 
@@ -49,7 +49,7 @@ class LanguageRequest extends FormRequest
             'lang-abbr.max'         => 'Abbreviation name must be at least 10 characters',      // LANGUAGE MAX LENGTH ABBREVIATION MESSAGE
             'lang-dire.required'    => 'Please select the language direction',                  // LANGUAGE REQUIRD DIRECTION MESSAGE
             'lang-dire.in'          => 'Please select one of the two previous options',         // LANGUAGE DIRECTION OPTIONS MESSAGE
-            'lang-stat.required'    => 'Please slide to activate the language',                 // LANGUAGE REQUIRED STATUS MESSAGE
+            // 'lang-stat.required'    => 'Please slide to activate the language',                 // LANGUAGE REQUIRED STATUS MESSAGE
             'lang-stat.in'          => 'The value entered is invalid',                          // LANGUAGE STATUS OPTIONS MESSAGE
         ];
     }
