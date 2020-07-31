@@ -48,4 +48,23 @@ class MainCate extends Model
         );
     }
 
+    // LOCAL SELECTION SCOPE
+    public function scopeSelection($query)
+    {
+        return $query->select(
+            'id',
+            'trans_lang',
+            'trans_of',
+            'name',
+            'slug',
+            'photo',
+            'status'
+        );
+    }
+
+    public function getStatus()
+    {
+        return $this->status == 1? 'Active': 'Pending';
+    }
+
 }

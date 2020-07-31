@@ -1,23 +1,23 @@
 @extends('layouts.admin')
-@section('title', 'Languages')
+@section('title', 'Main Categories')
 
 @section('content')
 <div class="app-content content">
     <div class="content-wrapper">
         <div class="content-header row">
             <div class="content-header-left col-md-6 col-12 mb-2">
-                <h3 class="content-header-title">اللغات</h3>
+                <h3 class="content-header-title">الاقسام الرئيسيه</h3>
                 <div class="row breadcrumbs-top">
                     <div class="breadcrumb-wrapper col-12">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="{{route('admin.dashboard')}}">الرئيسية</a>
+                                <a href="{{route('admin.dashboard')}}">الرئيسيه</a>
                             </li>
                             <li class="breadcrumb-item active">
-                                <a href="{{route('admin.languages')}}">اللغات</a>
+                                <a href="{{route('admin.main.cates')}}">الاقسام الرئيسيه</a>
                             </li>
                             <li class="breadcrumb-item active">
-                                <a href="{{route('admin.language.create')}}">اضافة لغه جديده</a>
+                                <a href="{{route('admin.main.cate.create')}}">اضافة قسم جديد</a>
                             </li>
                         </ol>
                     </div>
@@ -31,7 +31,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">لغات الموقع</h4>
+                                <h4 class="card-title">اقسام الموقع الرئيسيه</h4>
                                 <a class="heading-elements-toggle">
                                     <i class="la la-ellipsis-v font-medium-3"></i>
                                 </a>
@@ -71,7 +71,6 @@
                                         <tr>
                                             <th>الاسم</th>
                                             <th>الاختصار</th>
-                                            <th>الاتجاه</th>
                                             <th>الحالة</th>
                                             <th>الإجراءات</th>
                                         </tr>
@@ -79,14 +78,13 @@
                                         <tbody>
 
                                         {{-- DB LANGUAGES --}}
-                                        @isset($langs)
-                                            @foreach($langs as $lang)
+                                        @isset($mainCates)
+                                            @foreach($mainCates as $mainCate)
                                             
                                                 <tr>
-                                                    <td>{{$lang->name}}</td>
-                                                    <td>{{$lang->abbr}}</td>
-                                                    <td>{{$lang->getDirection()}}</td>
-                                                    <td>{{$lang->getStatus()}}</td>
+                                                    <td>{{$mainCate->name}}</td>
+                                                    <td>{{$mainCate->trans_lang}}</td>
+                                                    <td>{{$mainCate->getStatus()}}</td>
                                                     <td>
                                                         <div
                                                             class="btn-group"
@@ -94,25 +92,25 @@
                                                             aria-label="Basic example">
                                                             
                                                             <a
-                                                                href="{{route('admin.language.edit', $lang->id)}}"
+                                                                href="{{route('admin.main.cate.edit', $mainCate->id)}}"
                                                                 class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">
                                                                 
-                                                                <span>تعديل اللغه</span>
+                                                                <span>تعديل القسم</span>
                                                             </a>
 
 
                                                             <a
-                                                                href="{{route('admin.language.delete', $lang->id)}}"
+                                                                href="{{route('admin.main.cate.delete', $mainCate->id)}}"
                                                                 class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">
                                                             
-                                                                <span>حذف اللغه</span>
+                                                                <span>حذف القسم</span>
                                                             </a>
                                                         </div>
                                                     </td>
                                                 </tr>
                                             @endforeach
 
-                                            {!! $langs->links() !!}
+                                            {!! $mainCates->links() !!}
 
                                         @endisset
                                         

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\MainCategoriesController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\RedirectIfAuthenticated;
@@ -46,7 +47,7 @@ Route::group(   // AUTHORIZED ADMIN ROUTES GROUP
         ####################################### START LANGUAGES ROUTE #######################################
             Route::group(   // LANGUAGES ROUTES GROUP
                 [
-                    'prefix' => 'languages'
+                    'prefix' => 'languages'     // URL PREFIX
                 ],
                 function () {
 
@@ -87,6 +88,51 @@ Route::group(   // AUTHORIZED ADMIN ROUTES GROUP
                 }
             );
         ####################################### END LANGUAGES ROUTE #######################################
+
+        ####################################### START MAIN CATEGORIES ROUTE #######################################
+        Route::group(   // MAIN CATEGORIES ROUTES GROUP
+            [
+                'prefix' => 'main-categories'       // URL PREFIX
+            ],
+            function () {
+
+                // MAIN TABLE ROUTE
+                Route::get(
+                    '/',
+                    'MainCategoriesController@index'
+                )->name('admin.main.cates');
+
+                // CREATE FORM ROUTE
+                Route::get(
+                    'create',
+                    'MainCategoriesController@create'
+                )->name('admin.main.cate.create');
+                // SAVE FORM ROUTE
+                Route::post(
+                    'save',
+                    'MainCategoriesController@save'
+                )->name('admin.main.cate.save');
+
+                // EDIT FORM ROUTE
+                Route::get(
+                    'edit/{lang_id}',
+                    'MainCategoriesController@edit'
+                )->name('admin.main.cate.edit');
+                // UPDATE FORM ROUTE
+                Route::post(
+                    'update/{lang_id}',
+                    'MainCategoriesController@update'
+                )->name('admin.main.cate.update');
+
+                // DELETE ROUTE
+                Route::get(
+                    'delete/{lang_id}',
+                    'MainCategoriesController@destroy'
+                )->name('admin.main.cate.delete');
+
+            }
+        );
+    ####################################### END MAIN CATEGORIES ROUTE #######################################
 
     }
 );
