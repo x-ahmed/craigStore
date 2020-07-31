@@ -85,7 +85,7 @@
                                                 <tr>
                                                     <td>{{$lang->name}}</td>
                                                     <td>{{$lang->abbr}}</td>
-                                                    <td>{{$lang->direction}}</td>
+                                                    <td>{{$lang->getDirection()}}</td>
                                                     <td>{{$lang->getStatus()}}</td>
                                                     <td>
                                                         <div

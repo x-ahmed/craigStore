@@ -80,7 +80,7 @@ class Language extends Model
     ** IN THE EDIT FORM WITH THE CHECKBOX INPUT
     */
     
-    // STATUS ACCESSOR
+    // STATUS METHOD
     public function getStatus()
     {
         // ACTIVE FOR 1 AND PENDING FOR 0
@@ -91,13 +91,16 @@ class Language extends Model
     ** ASSIGNS MESSAGES FOR THE DB VALUE
     ** WHERE "ltr" MESSAGE IS "From left to right"
     ** AND "rtl" MESSAGE IS "From right to left"
+    ** CHANGED FROM AN ACCESSOR TO A NORMAL METHOD
+    ** AS IT AFFECTS THE HTML option "selected" ATTRIBUTE
+    ** IF CONDITION IN EDIT VIEW.
     */
 
-    // DIRECTION ACCESSOR
-    public function getDirectionAttribute($val)
+    // DIRECTION METHOD
+    public function getDirection()
     {
         // RETURN THE ASSIGNED MESSAGES
-        return $val == "ltr"? 'From left to right': 'From right to left';
+        return $this->direction == "ltr"? 'From left to right': 'From right to left';
     }
 
 }

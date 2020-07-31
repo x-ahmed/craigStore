@@ -73,11 +73,6 @@
                                             enctype="multipart/form-data">
 
                                             @csrf
-
-                                            {{-- <input
-                                                type="hidden"
-                                                name="id"
-                                                value="{{bcrypt($lang->id)}}" /> --}}
                                             
                                             <div class="form-body">
                                                 <h4 class="form-section">
@@ -137,16 +132,14 @@
                                                                 <optgroup label="من فضلك أختر اتجاه اللغة">
                                                                     <option
                                                                         value="rtl"
-                                                                        {{-- {{(old('direction', $lang->direction) == 'rtl')? 'selected': ''}}> --}}
-                                                                        @if (old($lang->direction) == 'rtl') selected @endif>
+                                                                        {{(old('direction', $lang->direction) == 'rtl')? 'selected': ''}}>
                                                                         
                                                                         <span>من اليمين الي اليسار</span>
                                                                     </option>
                                                                 
                                                                     <option
                                                                         value="ltr"
-                                                                        {{-- {{(old('direction', $lang->direction) == 'ltr')? 'selected': ''}}> --}}
-                                                                        @if (old($lang->direction) == 'ltr') selected @endif>
+                                                                        {{(old('direction', $lang->direction) == 'ltr')? 'selected': ''}}>
                                                                         
                                                                         <span>من اليسار الي اليمين</span>
                                                                     </option>
