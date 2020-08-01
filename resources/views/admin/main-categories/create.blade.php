@@ -109,7 +109,7 @@
                                                                 id="cate-abbr"
                                                                 name="cate-abbr"
                                                                 class="form-control"
-                                                                placeholder="ادخل اختصار قسم رئيسى" />
+                                                                placeholder="ادخل اختصار لغة القسم الرئيسى" />
 
                                                             @error('cate-abbr')
                                                                 <span class="text-danger">{{$message}}</span>
@@ -120,33 +120,22 @@
 
                                                 </div>
 
-                                                {{-- <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="cate-dire">الاتجاة</label>
-                                                            <select
-                                                                id="cate-dire"
-                                                                name="cate-dire"
-                                                                class="select2 form-control">
-
-                                                                <optgroup label="من فضلك أختر اتجاه اللغة">
-                                                                    <option value="rtl">من اليمين الي اليسار</option>
-                                                                    <option value="ltr">من اليسار الي اليمين</option>
-                                                                </optgroup>
-                                                            </select>
-
-                                                            @error('cate-dire')
-                                                                <span class="text-danger">{{$message}}</span>
-                                                            @enderror
-                                                            
-                                                        </div>
-                                                    </div>
-                                                </div> --}}
-
-
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group mt-1">
+                                                        <div class="form-group">
+                                                            <label for="cate-pict">الصوره</label>
+                                                            <input
+                                                                type="file"
+                                                                class="form-control form-control-file"
+                                                                name="cate-pict"
+                                                                id="cate-pict" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group" style="margin-top: 30px;">
+                                                            <label
+                                                                for="switcheryColor4"
+                                                                class="card-title mr-1">الحالة</label>
                                                             <input
                                                                 type="checkbox"
                                                                 name="cate-stat"
@@ -155,9 +144,6 @@
                                                                 class="switchery"
                                                                 data-color="success"
                                                                 checked />
-                                                            <label
-                                                                for="switcheryColor4"
-                                                                class="card-title ml-1">الحالة</label>
 
                                                             @error('cate-stat')
                                                                 <div>
@@ -165,11 +151,9 @@
                                                                 </div>
                                                             @enderror
 
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-
 
                                             <div class="form-actions">
                                                 <button
