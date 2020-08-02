@@ -23,3 +23,19 @@ use Illuminate\Support\Facades\Config;
         // return Config::get('app.locale');    // RETURNS DEFAULT LANGUAGE "en"
         return Config::get('locale', 'ar');     // OVERRIDES DEFAULT LANGUAGE TO "ar"
     }
+
+    /*
+    ** HELPER FUNCTION THAT
+    ** UPLOADS IMAGE
+    ** PARAMS:
+    **  - FIRST PARAM IS FOLDER NAME
+    **  - SECOND PARAM IS IMAGE NAME
+    */
+    // function uploadImage($folder, $img)
+    // {
+    //     $img->store('/', $folder);
+    //     $fileName = $img->hashName();
+    //     $path = 'images/' .$folder. '/' .$fileName;
+
+    //     return $path;
+    // }

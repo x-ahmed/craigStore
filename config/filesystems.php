@@ -55,6 +55,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'main-cates' => [   // MAIN-CATEGORIES IMAGES
+            'driver'        => 'local',
+            'root'          => base_path(). '/assets/images/main-cates/',
+            'url'           => env('APP_URL').'/public',
+            'visibility'    => 'public',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

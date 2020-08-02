@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\MainCateRequest;
 use App\Models\MainCate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
@@ -29,9 +30,17 @@ class MainCategoriesController extends Controller
         );
     }
 
+    // SHOW FORM OF MAIN CATEGORY CREATION
     public function create()
     {
+        // MAIN CATEGORY CREATION FORM
         return view('admin.main-categories.create');
+    }
+
+    // SAVE MAIN CATEGORY FROM DATA
+    public function save(MainCateRequest $request)
+    {
+        return $request;
     }
 
     public function edit($id)
