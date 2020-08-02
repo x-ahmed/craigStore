@@ -26,16 +26,20 @@ use Illuminate\Support\Facades\Config;
 
     /*
     ** HELPER FUNCTION THAT
-    ** UPLOADS IMAGE
+    ** UPLOADS FILE
     ** PARAMS:
     **  - FIRST PARAM IS FOLDER NAME
-    **  - SECOND PARAM IS IMAGE NAME
+    **  - SECOND PARAM IS FILE NAME
+    ** ----------------------------
+    ** NOTE THAT MAIN CATEGORIES METHOD
+    ** IS PREDEFINED INTO "config\filesystems.php"
     */
-    // function uploadImage($folder, $img)
-    // {
-    //     $img->store('/', $folder);
-    //     $fileName = $img->hashName();
-    //     $path = 'images/' .$folder. '/' .$fileName;
 
-    //     return $path;
-    // }
+    function uploadFile($folder, $file)
+    {
+        $file->store('/', $folder);                     // STORE FILE INTO A FOLDER
+        $fileName = $file->hashName();                  // HASH THE FILE NAME
+        $path = 'images/' .$folder. '/' .$fileName;     // FILE PATH TO SAVE
+
+        return $path;
+    }

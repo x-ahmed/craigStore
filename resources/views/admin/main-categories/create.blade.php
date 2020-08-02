@@ -91,11 +91,11 @@
                                                                     type="text"
                                                                     value=""
                                                                     id="cate-name"
-                                                                    name="cate-bags[{{$index}}][cate-name]"
+                                                                    name="cate_bags[{{$index}}][cate_name]"
                                                                     class="form-control"
                                                                     placeholder="ادخل اسم القسم الرئيسى" />
 
-                                                                @error('cate-bags.' .$index. '.cate-name')
+                                                                @error('cate_bags.' .$index. '.cate_name')
                                                                     <span class="text-danger">{{$message}}</span>
                                                                 @enderror
                                                                 
@@ -109,11 +109,11 @@
                                                                     type="text"
                                                                     value=""
                                                                     id="cate-abbr"
-                                                                    name="cate-bags[{{$index}}][cate-abbr]"
+                                                                    name="cate_bags[{{$index}}][cate_abbr]"
                                                                     class="form-control"
                                                                     placeholder="ادخل اختصار لغة القسم" />
 
-                                                                @error('cate-bags.' .$index. '.cate-abbr')
+                                                                @error('cate_bags.' .$index. '.cate_abbr')
                                                                     <span class="text-danger">{{$message}}</span>
                                                                 @enderror
                                                                 
@@ -124,7 +124,7 @@
                                                             <div class="form-group" style="margin-top: 30px;">
                                                                 <input
                                                                     type="checkbox"
-                                                                    name="cate-bags[{{$index}}][cate-stat]"
+                                                                    name="cate_bags[{{$index}}][cate_stat]"
                                                                     value="1"
                                                                     id="switcheryColor4"
                                                                     class="switchery"
@@ -135,7 +135,7 @@
                                                                 for="switcheryColor4"
                                                                 class="card-title ml-1">الحالة - {{__('global.' .$lang->abbr)}}</label>
 
-                                                                @error('cate-bags.' .$index. '.cate-stat')
+                                                                @error('cate_bags.' .$index. '.cate_stat')
                                                                     <div>
                                                                         <span class="text-danger">{{$message}}</span>
                                                                     </div>
@@ -151,14 +151,14 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="cate-imag">الصوره</label>
+                                                            <label for="cate_imag">الصوره</label>
                                                             <input
                                                                 type="file"
                                                                 class="form-control form-control-file"
-                                                                name="cate-imag"
-                                                                id="cate-imag" />
+                                                                name="cate_imag"
+                                                                id="cate_imag" />
 
-                                                            @error('cate-imag')
+                                                            @error('cate_imag')
                                                                 <div>
                                                                     <span class="text-danger">{{$message}}</span>
                                                                 </div>
