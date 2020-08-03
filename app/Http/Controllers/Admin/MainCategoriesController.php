@@ -49,7 +49,7 @@ class MainCategoriesController extends Controller
             // REQUEST IMAGE CHECK
             if ($request->has('cate_imag')) {
                 // ASSING IMAGE PATH TO THE PREVIOUS EMPTY VARIABLE
-                $imgPath = uploadFile('main-cates', $request->cate_imag);
+                $imgPath = uploadFile('main_cates', $request->cate_imag);
             }
 
             // CONVERT CATEGORY INPUT BAGS TO COLLECTION.
@@ -86,7 +86,7 @@ class MainCategoriesController extends Controller
             ]);
 
             // FILTER REST OF CATEGORY BAGS 
-            $cageRestPackets = $catePackets->filter(function ($val, $key)
+            $cateRestPackets = $catePackets->filter(function ($val, $key)
             {
                 // LANGUAGE KEY OF EACH CATEGORY BAG
                 $key = 'cate_abbr';
@@ -98,13 +98,13 @@ class MainCategoriesController extends Controller
             });
 
             // DEFAULT CATEGORY REST PACKETS EXISTANCE CHECK
-            if (isset($cageRestPackets) && $cageRestPackets->count() > 0) {
+            if (isset($cateRestPackets) && $cateRestPackets->count() > 0) {
                 
                 // DEFAULT CATEGORY REST PACKETS ARRAY
                 $catesOfDefaultCate = [];
 
                 // DEFAULT CATEGORY REST PACKETS LOOP
-                foreach ($cageRestPackets as $catePacket) {
+                foreach ($cateRestPackets as $catePacket) {
 
                     // DEFAULT CATERGORY REST PACKETS INPUT DATA
                     $catesOfDefaultCate[] =[

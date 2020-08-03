@@ -66,13 +66,15 @@
 
                             <div class="card-content collapse show">
                                 <div class="card-body card-dashboard">
-                                    <table class="table display nowrap table-striped table-bordered ">
+                                <table class="table display nowrap table-striped table-bordered{{--  scroll-horizontal --}}">
                                         <thead>
                                         <tr>
-                                            <th>الاسم</th>
-                                            <th>الاختصار</th>
-                                            <th>الحالة</th>
-                                            <th>الإجراءات</th>
+                                            <th class="text-center">الاسم</th>
+                                            <th class="text-center">اللغه</th>
+                                            <th class="text-center">الاختصار</th>
+                                            <th class="text-center">الصوره</th>
+                                            <th class="text-center">الحالة</th>
+                                            <th class="text-center">الإجراءات</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -82,10 +84,17 @@
                                             @foreach($mainCates as $mainCate)
                                             
                                                 <tr>
-                                                    <td>{{$mainCate->name}}</td>
-                                                    <td>{{$mainCate->trans_lang}}</td>
-                                                    <td>{{$mainCate->getStatus()}}</td>
-                                                    <td>
+                                                    <td class="text-center">{{$mainCate->name}}</td>
+                                                    <td class="text-center">{{getDefaultLang()}}</td>
+                                                    <td class="text-center">{{$mainCate->trans_lang}}</td>
+                                                    <td class="text-center">
+                                                        <img
+                                                            style="width: 100%; height:100%;"
+                                                            src="{{$mainCate->photo}}"
+                                                            alt="Category Image" />
+                                                    </td>
+                                                    <td class="text-center">{{$mainCate->getStatus()}}</td>
+                                                    <td class="text-center">
                                                         <div
                                                             class="btn-group"
                                                             role="group"
@@ -95,16 +104,23 @@
                                                                 href="{{route('admin.main.cate.edit', $mainCate->id)}}"
                                                                 class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">
                                                                 
-                                                                <span>تعديل القسم</span>
+                                                                <span>تعديل</span>
                                                             </a>
-
+                                                            
+                                                            <a
+                                                                href=""
+                                                                class="btn btn-outline-warning btn-min-width box-shadow-3 mr-1 mb-1">
+                                                            
+                                                                <span>تفعيل</span>
+                                                            </a>
 
                                                             <a
                                                                 href="{{route('admin.main.cate.delete', $mainCate->id)}}"
                                                                 class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">
                                                             
-                                                                <span>حذف القسم</span>
+                                                                <span>حذف</span>
                                                             </a>
+
                                                         </div>
                                                     </td>
                                                 </tr>

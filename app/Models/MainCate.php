@@ -69,4 +69,10 @@ class MainCate extends Model
         return $this->status == 1? 'Active': 'Pending';
     }
 
+    // PHOTO ACCESSOR
+    public function getPhotoAttribute($val)
+    {
+        return ($val != null)? asset('assets/' .$val): '';
+    }
+
 }

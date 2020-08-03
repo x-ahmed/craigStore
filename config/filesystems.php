@@ -55,9 +55,9 @@ return [
             'visibility' => 'public',
         ],
 
-        'main-cates' => [   // MAIN-CATEGORIES IMAGES
+        'main_cates' => [   // MAIN-CATEGORIES IMAGES
             'driver'        => 'local',
-            'root'          => base_path(). '/assets/images/main-cates/',
+            'root'          => base_path(). '/assets/images/main_cates/',
             'url'           => env('APP_URL').'/public',
             'visibility'    => 'public',
         ],
