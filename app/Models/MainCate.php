@@ -62,8 +62,10 @@ class MainCate extends Model
         );
     }
 
+    // STATUS METHOD
     public function getStatus()
     {
+        // ACTIVE FOR 1 AND PENDING FOR 0
         return $this->status == 1? 'Active': 'Pending';
     }
 
