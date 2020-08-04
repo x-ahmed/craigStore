@@ -19,7 +19,7 @@ use App\Http\Middleware\RedirectIfAuthenticated;
 // PAGINATION COUNT
 define(
     'PAGINATION_COUNT',     // PAGINATION CONSTANT
-    5                       // PAGINATION VLAUE
+    10                       // PAGINATION VLAUE
 );
 
 /* Route::get('/', function () {

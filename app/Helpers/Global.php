@@ -21,7 +21,30 @@ use Illuminate\Support\Facades\Config;
     {
         // CONFIGURATION DEFAULT LANGUAGE FROM "config\app.php"
         // return Config::get('app.locale');    // RETURNS DEFAULT LANGUAGE "en"
-        return Config::get('locale', 'ar');     // OVERRIDES DEFAULT LANGUAGE TO "ar"
+        return Config::get(
+            'locale',               // OVERRIDES DEFAULT LANGUAGE TO "ar"
+            strtoupper('ar')        // CONVERT LANGUAGE ABBREVIATION TO UPPER CASE
+        );
+    }
+
+    /*
+    ** HELPER FUNCTION THAT
+    ** RETURNS THE LANGUAGE NAME
+    ** BASED ON THE DATABASE ABBREVIATION
+    ** PARAMS:
+    **  - PARAM IS DB ABBREVIATION VALUE
+    */
+
+    function getLanguageName($val)
+    {
+        // CHECK VALUE IS ARABIC
+        if ($val == 'AR') {
+            return 'العربيه';
+        }
+        // CHECK VALUE IS ENGLISH
+        else if ($val == 'EN') {
+            return 'English';
+        }
     }
 
     /*

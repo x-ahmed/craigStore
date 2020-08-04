@@ -43,15 +43,6 @@ class MainCategoriesController extends Controller
     {
         try {
 
-            // EMPTY IMAGE PATH STRING
-            $imgPath = '';
-
-            // REQUEST IMAGE CHECK
-            if ($request->has('cate_imag')) {
-                // ASSING IMAGE PATH TO THE PREVIOUS EMPTY VARIABLE
-                $imgPath = uploadFile('main_cates', $request->cate_imag);
-            }
-
             // CONVERT CATEGORY INPUT BAGS TO COLLECTION.
             $catePackets = collect($request->cate_bags);
 
@@ -71,6 +62,18 @@ class MainCategoriesController extends Controller
             $defaultCate = array_values(    // REMOVES THE ARRAY KEYS
                 $cateOfDefaultLang->all()   // CONVERTS OBJECT TO ARRAY
             )[0];                           // TO RETURN THE ARRAY FIRST OBJECT WHICH IS THE ONLY EXIST ONE AS AN ARRAY
+
+            // EMPTY IMAGE PATH STRING
+            $imgPath = '';
+
+            // REQUEST IMAGE CHECK
+            if ($request->has('cate_imag')) {
+                // DEFAULT CATEGORY BAG'S EMPTY CHECK
+                if (!empty($cateOfDefaultLang)) {
+                    // ASSING IMAGE PATH TO THE PREVIOUS EMPTY VARIABLE
+                    $imgPath = uploadFile('main_cates', $request->cate_imag);
+                }
+            }
 
             // START DATABASE STATEMENTS TRANSACTIONS
             DB::beginTransaction();

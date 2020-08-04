@@ -84,7 +84,7 @@
                                                     @foreach (getActiveLangs() as $index => $lang)
                                                     <div class="row">
 
-                                                        <div class="col-md-4">
+                                                        <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label for="cate-name">الاسم - {{__('global.' .$lang->abbr)}}</label>
                                                                 <input
@@ -102,12 +102,12 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-md-4">
+                                                        <div class="col-md-3 hidden">
                                                             <div class="form-group">
                                                                 <label for="cate-abbr">الاختصار - {{__('global.' .$lang->abbr)}}</label>
                                                                 <input
                                                                     type="text"
-                                                                    value=""
+                                                                    value="{{$lang->abbr}}"
                                                                     id="cate-abbr"
                                                                     name="cate_bags[{{$index}}][cate_abbr]"
                                                                     class="form-control"
@@ -120,7 +120,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-md-4">
+                                                        <div class="col-md-3">
                                                             <div class="form-group" style="margin-top: 30px;">
                                                                 <input
                                                                     type="checkbox"

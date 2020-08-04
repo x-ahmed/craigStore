@@ -72,7 +72,25 @@ class MainCate extends Model
     // PHOTO ACCESSOR
     public function getPhotoAttribute($val)
     {
+        // ASSET THE IMAGE ACTUAL PATH
         return ($val != null)? asset('assets/' .$val): '';
     }
+
+    // MAIN CATEGORY TRANSLATION LANGUAGE ACCESSOR
+    public function getTransLangAttribute($val)
+    {
+        // CHECK VALUE IS ARABIC
+        if ($val == 'AR') {
+            return 'العربيه';
+        }
+        // CHECK VALUE IS ENGLISH
+        else if ($val == 'EN') {
+            return 'English';
+        }
+    }
+
+    // MAIN CATEGORY NAME MUTATOR FOR FIRST LETTER UPPERCASE(CREATE FORM)
+
+    // MAIN CATEGORU TRANSLATION LANGUAGE MUTATOR FOR UPPERCASE(CREATE FORM)
 
 }
