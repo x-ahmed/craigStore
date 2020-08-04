@@ -86,7 +86,7 @@
                                                 <tr>
                                                     <td class="text-center">{{$mainCate->name}}</td>
                                                     {{-- <td class="text-center">{{getLanguageName($mainCate->trans_lang)}}</td> --}}
-                                                    <td class="text-center">{{$mainCate->trans_lang}}</td>
+                                                    <td class="text-center">{{__('global.' .$mainCate->trans_lang)}}</td>
                                                     {{-- <td class="text-center">{{getDefaultLang()}}</td> --}}
                                                     <td class="text-center">
                                                         <img

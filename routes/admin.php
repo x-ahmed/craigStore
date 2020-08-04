@@ -7,12 +7,12 @@ use App\Http\Middleware\RedirectIfAuthenticated;
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| Admin Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register web routes for your application. These
+| Here is where you can register admin routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
+| contains the "admin" middleware group. Now create something great!
 |
 */
 
@@ -115,18 +115,18 @@ Route::group(   // AUTHORIZED ADMIN ROUTES GROUP
 
                 // EDIT FORM ROUTE
                 Route::get(
-                    'edit/{lang_id}',
+                    'edit/{cate_id}',
                     'MainCategoriesController@edit'
                 )->name('admin.main.cate.edit');
                 // UPDATE FORM ROUTE
                 Route::post(
-                    'update/{lang_id}',
+                    'update/{cate_id}',
                     'MainCategoriesController@update'
                 )->name('admin.main.cate.update');
 
                 // DELETE ROUTE
                 Route::get(
-                    'delete/{lang_id}',
+                    'delete/{cate_id}',
                     'MainCategoriesController@destroy'
                 )->name('admin.main.cate.delete');
 

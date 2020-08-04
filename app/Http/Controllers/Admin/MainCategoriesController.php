@@ -153,9 +153,45 @@ class MainCategoriesController extends Controller
 
     }
 
-    public function edit($id)
+    // SHOW FORM OF EDITING MAIN CATEGORY'S VIEW
+    public function edit($cate_id)
     {
-        return view('admin.main-categories.edit');
+        // DATABASE MAIN CATEGORY
+        $cate = MainCate::selection()->find($cate_id);
+
+        // MAIN CATEGORY DB EXISTANCE CHECK
+        if (!$cate) {
+            return redirect()->route('admin.main.cates')->with([
+                'error' => 'No such main category'
+            ]);
+        }
+        
+        // REDIRECT TO EDITING FORM VIEW
+        return view(
+            'admin.main-categories.edit',
+            compact('cate')
+        );
+    }
+
+    // UPDATE MAIN CATEGORY EDIT FROM DATA
+    public function update(MainCateRequest $request, $cate_id)
+    {
+        $cate = MainCate::find($cate_id);
+
+        if (!$cate) {
+            return redirect()->route('admin.main.cates')->with([
+                'error' => 'No such main category'
+            ]);
+        }
+return $request;
+        return $cateInputVals = array_values($request->input('cate_bags'))[0];
+
+        $cate->update([
+            'name'          => $cateInputVals['cate_name'],
+            'trans_lang'    => $cateInputVals['cate_abbr'],
+            'status'        => $cateInputVals['cate_stat'],
+            'photo'         => $cateInputVals->cate_name,
+        ]);
     }
 
 }

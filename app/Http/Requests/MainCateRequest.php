@@ -25,11 +25,11 @@ class MainCateRequest extends FormRequest
     {
         return [
             // MAIN CATEGORIES VALIDATION RULES OF CREATE
-            'cate_bags'             => 'required|array|min:1',              // MAIN CATEGORY ARRAY OF OBJECTS
-            'cate_bags.*.cate_name' => 'required|string|max:100',           // MAIN CATEGORY NAMES
-            'cate_bags.*.cate_abbr' => 'required|string|max:10',            // MAIN CATEGORY ABBREVIATIONS
-            'cate_bags.*.cate_stat' => 'required|in:0,1',                   // MAIN CATEGORY STATUSES
-            'cate_imag'             => 'required|mimes:jpg,jpeg,png',       // MAIN CATEGORY IMAGE
+            'cate_bags'             => 'required|array|min:1',                              // MAIN CATEGORY ARRAY OF OBJECTS
+            'cate_bags.*.cate_name' => 'required|string|max:100',                           // MAIN CATEGORY NAMES
+            'cate_bags.*.cate_abbr' => 'required|string|max:10',                            // MAIN CATEGORY ABBREVIATIONS
+            'cate_bags.*.cate_stat' => 'required_without:edit|in:0,1',                      // MAIN CATEGORY STATUSES
+            'cate_imag'             => 'required_without:edit|mimes:jpg,jpeg,png',          // MAIN CATEGORY IMAGE
         ];
     }
 
@@ -54,11 +54,11 @@ class MainCateRequest extends FormRequest
             'cate_bags.*.cate_abbr.string'      => 'Language abbreviation must be letters',                 // MAIN CATEGORY STRING ABBREVIATION MESSAGE
             'cate_bags.*.cate_abbr.max'         => 'Abbreviation name must be at least 10 characters',      // MAIN CATEGORY MAX LENGTH ABBREVIATION MESSAGE
             
-            'cate_bags.*.cate_stat.required'    => 'Please slide to activate the language',                 // MAIN CATEGORY REQUIRED STATUS MESSAGE
-            'cate_bags.*.cate_stat.in'          => 'The value entered is invalid',                          // MAIN CATEGORY STATUS OPTIONS MESSAGE
+            'cate_bags.*.cate_stat.required_without'    => 'Please slide to activate the language',                 // MAIN CATEGORY REQUIRED STATUS MESSAGE
+            'cate_bags.*.cate_stat.in'                  => 'The value entered is invalid',                          // MAIN CATEGORY STATUS OPTIONS MESSAGE
 
-            'cate_imag.required'    => 'Please insert a category image',                                    // MAIN CATEGORY IMAGE REQUIRED MESSAGE
-            'cate_imag.mimes'       => '"jpg", "jpeg", and "png" only are the available extensions',        // MAIN CATEGORY IMAGE EXTENSIONS MESSAGE
+            'cate_imag.required_without'    => 'Please insert a category image',                         // MAIN CATEGORY IMAGE REQUIRED MESSAGE
+            'cate_imag.mimes'               => 'only "jpg", "jpeg", and "png" are the available',        // MAIN CATEGORY IMAGE EXTENSIONS MESSAGE
         ];
     }
 

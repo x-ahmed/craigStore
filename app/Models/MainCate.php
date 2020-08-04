@@ -76,18 +76,18 @@ class MainCate extends Model
         return ($val != null)? asset('assets/' .$val): '';
     }
 
-    // MAIN CATEGORY TRANSLATION LANGUAGE ACCESSOR
-    public function getTransLangAttribute($val)
-    {
-        // CHECK VALUE IS ARABIC
-        if ($val == 'AR') {
-            return 'العربيه';
-        }
-        // CHECK VALUE IS ENGLISH
-        else if ($val == 'EN') {
-            return 'English';
-        }
-    }
+    // // MAIN CATEGORY TRANSLATION LANGUAGE ACCESSOR
+    // public function getTransLangAttribute($val)
+    // {
+    //     // CHECK VALUE IS ARABIC
+    //     if ($val == 'AR') {
+    //         return 'العربيه';
+    //     }
+    //     // CHECK VALUE IS ENGLISH
+    //     else if ($val == 'EN') {
+    //         return 'English';
+    //     }
+    // }
 
     // MAIN CATEGORY NAME MUTATOR FOR FIRST LETTER UPPERCASE(CREATE FORM)
 

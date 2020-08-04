@@ -16,7 +16,7 @@
                                 <li class="breadcrumb-item">
                                     <a href="{{route('admin.main.cates')}}">الاقسام الرئيسيه</a>
                                 </li>
-                                <li class="breadcrumb-item active">اضافة قسم رئيسى جديد</li>
+                                <li class="breadcrumb-item active">اضافة جديد</li>
                             </ol>
                         </div>
                     </div>
@@ -31,7 +31,7 @@
                                 <div class="card-header">
                                     <h4
                                         class="card-title"
-                                        id="basic-layout-form">اضافة قسم رئيسى جديد</h4>
+                                        id="basic-layout-form">اضافة قسم رئيسى</h4>
                                     <a class="heading-elements-toggle">
                                         <i class="la la-ellipsis-v font-medium-3"></i>
                                     </a>
@@ -77,7 +77,7 @@
                                             <div class="form-body">
                                                 <h4 class="form-section">
                                                     <i class="ft-home"></i>
-                                                    <span>تفاصيل القسم الرئيسى</span>
+                                                    <span>التفاصيل</span>
                                                 </h4>
 
                                                 @if (getActiveLangs()->count() > 0)
@@ -102,7 +102,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-md-3 hidden">
+                                                        <div class="col-md-0 hidden">
                                                             <div class="form-group">
                                                                 <label for="cate-abbr">الاختصار - {{__('global.' .$lang->abbr)}}</label>
                                                                 <input
@@ -120,7 +120,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-md-3">
+                                                        <div class="col-md-6">
                                                             <div class="form-group" style="margin-top: 30px;">
                                                                 <input
                                                                     type="checkbox"

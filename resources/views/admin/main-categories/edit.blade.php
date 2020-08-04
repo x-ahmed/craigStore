@@ -16,7 +16,16 @@
                                 <li class="breadcrumb-item">
                                     <a href="{{route('admin.main.cates')}}">الاقسام الرئيسيه</a>
                                 </li>
-                                <li class="breadcrumb-item active">تعديل قسم رئيسى</li>
+                            <li class="breadcrumb-item active">
+
+                                @if (getDefaultLang() == 'AR')
+                                    <span> تعديل قسم</span>
+                                    <span>ال{{$cate->name}}</span>
+                                @elseif (getDefaultLang() == 'EN')
+                                    <span>Edit {{$cate->name}} Category</span>
+                                @endif
+
+                            </li>
                             </ol>
                         </div>
                     </div>
@@ -31,7 +40,7 @@
                                 <div class="card-header">
                                     <h4
                                         class="card-title"
-                                        id="basic-layout-form">تعديل قسم رئيسى</h4>
+                                        id="basic-layout-form">تعديل القسم الرئيسي</h4>
                                     <a class="heading-elements-toggle">
                                         <i class="la la-ellipsis-v font-medium-3"></i>
                                     </a>
@@ -74,103 +83,42 @@
 
                                             @csrf
                                             
+                                            {{-- HIDDEN INPUT FOR THE DEACTIVATE IMAGE REQUIRED VALIDATION --}}
+                                            <input
+                                                type="hidden"
+                                                name="edit"
+                                                value="{{$cate->id}}" />
+
                                             <div class="form-body">
                                                 <h4 class="form-section">
                                                     <i class="ft-home"></i>
-                                                    <span>تفاصيل قسم رئيسى</span>
+                                                    <span>التفاصيل</span>
                                                 </h4>
 
                                                 <div class="row">
-
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-12">
                                                         <div class="form-group">
-                                                            <label for="cate-name">الاسم</label>
-                                                            <input
-                                                                type="text"
-                                                                value="{{old('name', $cate->name)}}"
-                                                                id="cate-name"
-                                                                name="cate-name"
-                                                                class="form-control"
-                                                                placeholder="ادخل اسم قسم رئيسى" />
-
-                                                            @error('cate-name')
-                                                                <span class="text-danger">{{$message}}</span>
-                                                            @enderror
-                                                            
+                                                            <div class="text-center">
+                                                                <img
+                                                                    style="width: 100%; height:250px;"
+                                                                    class="{{--rounded-circle--}} {{--height-200--}}"
+                                                                    src="{{old('photo', $cate->photo)}}"
+                                                                    alt="{{$cate->name}} Photo" />
+                                                            </div>
                                                         </div>
                                                     </div>
-
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="cate-abbr">الاختصار</label>
-                                                            <input
-                                                                type="text"
-                                                                value="{{old('abbr', $cate->abbr)}}"
-                                                                id="cate-abbr"
-                                                                name="cate-abbr"
-                                                                class="form-control"
-                                                                placeholder="ادخل اختصار قسم رئيسى" />
-
-                                                            @error('cate-abbr')
-                                                                <span class="text-danger">{{$message}}</span>
-                                                            @enderror
-                                                            
-                                                        </div>
-                                                    </div>
-
                                                 </div>
-
-                                                {{-- <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="cate-dire">الاتجاة</label>
-                                                            <select
-                                                                id="cate-dire"
-                                                                name="cate-dire"
-                                                                class="select2 form-control">
-
-                                                                <optgroup label="من فضلك أختر اتجاه اللغة">
-                                                                    <option
-                                                                        value="rtl"
-                                                                        {{(old('direction', $cate->direction) == 'rtl')? 'selected': ''}}>
-                                                                        
-                                                                        <span>من اليمين الي اليسار</span>
-                                                                    </option>
-                                                                
-                                                                    <option
-                                                                        value="ltr"
-                                                                        {{(old('direction', $cate->direction) == 'ltr')? 'selected': ''}}>
-                                                                        
-                                                                        <span>من اليسار الي اليمين</span>
-                                                                    </option>
-                                                                </optgroup>
-                                                            </select>
-
-                                                            @error('cate-dire')
-                                                                <span class="text-danger">{{$message}}</span>
-                                                            @enderror
-                                                            
-                                                        </div>
-                                                    </div>
-                                                </div> --}}
-
-
                                                 <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group mt-1">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            {{-- <label for="cate_imag">الصوره</label> --}}
                                                             <input
-                                                                type="checkbox"
-                                                                name="cate-stat"
-                                                                id="switcheryColor4"
-                                                                value="1"
-                                                                class="switchery"
-                                                                data-color="success"
-                                                                @if (old('status', $cate->status) == 1) checked @endif />
-                                                            <label
-                                                                for="switcheryColor4"
-                                                                class="card-title ml-1">الحالة</label>
+                                                                type="file"
+                                                                class="form-control form-control-lg form-control-file"
+                                                                name="cate_imag"
+                                                                id="cate_imag" />
 
-                                                            @error('cate-stat')
+                                                            @error('cate_imag')
                                                                 <div>
                                                                     <span class="text-danger">{{$message}}</span>
                                                                 </div>
@@ -179,8 +127,72 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
+                                                <hr class="mx-5 mt-0 mb-1"/>
+
+                                                <div class="row">
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="cate-name">الاسم - {{__('global.' .$cate->trans_lang)}}</label>
+                                                            <input
+                                                                type="text"
+                                                                value="{{old('name', $cate->name)}}"
+                                                                id="cate-name"
+                                                                name="cate_bags[0][cate_name]"
+                                                                class="form-control"
+                                                                placeholder="ادخل اسم القسم الرئيسى" />
+
+                                                            @error('cate_bags.0.cate_name')
+                                                                <span class="text-danger">{{$message}}</span>
+                                                            @enderror
+                                                            
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-0 hidden">
+                                                        <div class="form-group">
+                                                            <label for="cate-abbr">الاختصار - {{__('global.' .$cate->trans_lang)}}</label>
+                                                            <input
+                                                                type="text"
+                                                                value="{{$cate->trans_lang}}"
+                                                                id="cate-abbr"
+                                                                name="cate_bags[0][cate_abbr]"
+                                                                class="form-control"
+                                                                placeholder="ادخل اختصار لغة القسم" />
+
+                                                            @error('cate_bags.0.cate_abbr')
+                                                                <span class="text-danger">{{$message}}</span>
+                                                            @enderror
+                                                            
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group" style="margin-top: 30px;">
+                                                            <input
+                                                                type="checkbox"
+                                                                name="cate_bags[0][cate_stat]"
+                                                                value="{{old('status', $cate->status)}}"
+                                                                id="switcheryColor4"
+                                                                class="switchery"
+                                                                data-color="success"
+                                                                @if(old('status', $cate->status) == 1) checked @endif />
+
+                                                            <label
+                                                            for="switcheryColor4"
+                                                            class="card-title ml-1">الحالة - {{__('global.' .$cate->trans_lang)}}</label>
+
+                                                            @error('cate_bags.0.cate_stat')
+                                                                <div>
+                                                                    <span class="text-danger">{{$message}}</span>
+                                                                </div>
+                                                            @enderror
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
 
                                             <div class="form-actions">
                                                 <button
