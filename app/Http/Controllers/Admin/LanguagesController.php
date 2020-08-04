@@ -14,14 +14,24 @@ class LanguagesController extends Controller
     // SHOW TABLE OF ALL WEBSITE LANGUAGES.
     public function index()
     {
-        // ALL LANGUAGES FROM DB
-        $langs = Language::selection()->paginate(PAGINATION_COUNT);
+        try {
+            // ALL LANGUAGES FROM DB
+            $langs = Language::selection()->paginate(PAGINATION_COUNT);
 
-        // LANGUAGES MAIN TABLE VIEW.
-        return view(
-            'admin.languages.index',
-            compact('langs')
-        );
+            // LANGUAGES MAIN TABLE VIEW.
+            return view(
+                'admin.languages.index',
+                compact('langs')
+            );
+            
+        } catch (\Throwable $th) {
+
+            // REDIRCT TO ADMIN DASHBOARD WITH ERROR MESSAGE
+            return redirect()->route('admin.dashboard')->with([
+                'error' => 'Something went terribly wrong'
+            ]);
+        }
+
     }
 
     // SHOW CREATE LANGUAGE FORM
@@ -75,6 +85,7 @@ class LanguagesController extends Controller
             ]);
 
         } catch (\Throwable $th) {
+
             // REDIRECT TO LANGUAGES MAIN TABLE VIEW WITH ERROR MESSAGE
             return redirect()->route('admin.languages')->with([
                 'error' => 'Something went terribly wrong'
@@ -86,23 +97,33 @@ class LanguagesController extends Controller
     // SHOW EDIT A LANGUAGE FORM
     public function edit($lang_id)
     {
-        
-        // DB LANGUAGE OF AN ID
-        $lang = Language::selection()->find($lang_id);
+        try {
+            
+            // DB LANGUAGE OF AN ID
+            $lang = Language::selection()->find($lang_id);
 
-        // DB LANGUAGE NOT EXIST CHECK
-        if (!$lang) {
+            // DB LANGUAGE NOT EXIST CHECK
+            if (!$lang) {
+                // REDIRECT TO LANGUAGES MAIN TABLE VIEW WITH ERROR MESSAGE
+                return redirect()->route('admin.languages')->with([
+                    'error' => 'No such language'
+                ]);
+            }
+            
+            // EDIT LANGUAGE FORM
+            return view(
+                'admin.languages.edit',
+                compact('lang')     // LANGUAGE OBJECT
+            );
+            
+        } catch (\Throwable $th) {
+            
             // REDIRECT TO LANGUAGES MAIN TABLE VIEW WITH ERROR MESSAGE
             return redirect()->route('admin.languages')->with([
-                'error' => 'No such language'
+                'error' => 'Something went terribly wrong'
             ]);
         }
         
-        // EDIT LANGUAGE FORM
-        return view(
-            'admin.languages.edit',
-            compact('lang')     // LANGUAGE OBJECT
-        );
     }
 
     // UPDATE A LANGUAGE IN DB

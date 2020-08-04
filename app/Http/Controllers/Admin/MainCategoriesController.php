@@ -14,21 +14,32 @@ class MainCategoriesController extends Controller
     // SHOW TABLE OF ALL WEBSITE MAIN CATEGORIES.
     public function index()
     {
-        // CONFIGURATION DEFAULT LANGUAGE
-        $defaultLang = getDefaultLang();
+        try {
+            
+            // CONFIGURATION DEFAULT LANGUAGE
+            $defaultLang = getDefaultLang();
 
-        // COLLECTION OF ALL DB MAIN CATEGORIES
-        $mainCates = MainCate::where(
-            'trans_lang',
-            '=',
-            $defaultLang
-        )->selection()->paginate(PAGINATION_COUNT);
+            // COLLECTION OF ALL DB MAIN CATEGORIES
+            $mainCates = MainCate::where(
+                'trans_lang',
+                '=',
+                $defaultLang
+            )->selection()->paginate(PAGINATION_COUNT);
 
-        // MAIN CATEGORIES TABLE VIEW.
-        return view(
-            'admin.main-categories.index',
-            compact('mainCates')
-        );
+            // MAIN CATEGORIES TABLE VIEW.
+            return view(
+                'admin.main-categories.index',
+                compact('mainCates')
+            );
+            
+        } catch (\Throwable $th) {
+            
+            // REDIRECT TO ADMIN DASHOBOARD WITH ERROR MESSAGE
+            return redirect()->route('admin.dashboard')->with([
+                'error' => 'Something went terribly wrong'
+            ]);
+        }
+        
     }
 
     // SHOW FORM OF MAIN CATEGORY CREATION
@@ -156,26 +167,43 @@ class MainCategoriesController extends Controller
     // SHOW FORM OF EDITING MAIN CATEGORY'S VIEW
     public function edit($cate_id)
     {
-        // DATABASE MAIN CATEGORY
-        $cate = MainCate::selection()->find($cate_id);
+        try {
+            
+            // DATABASE MAIN CATEGORY
+            $cate = MainCate::selection()->find($cate_id);
 
-        // MAIN CATEGORY DB EXISTANCE CHECK
-        if (!$cate) {
-            return redirect()->route('admin.main.cates')->with([
-                'error' => 'No such main category'
+            // MAIN CATEGORY DB EXISTANCE CHECK
+            if (!$cate) {
+                return redirect()->route('admin.main.cates')->with([
+                    'error' => 'No such main category'
+                ]);
+            }
+            
+            // REDIRECT TO EDITING FORM VIEW
+            return view(
+                'admin.main-categories.edit',
+                compact('cate')
+            );
+            
+        } catch (\Throwable $th) {
+            
+            // REDIRECT TO ADMIN MAIN CATEGORITES TABLE
+            return redirect()->route('admin.main.cates')-with([
+                'error' => 'Something went terribly wrong'
             ]);
         }
         
-        // REDIRECT TO EDITING FORM VIEW
-        return view(
-            'admin.main-categories.edit',
-            compact('cate')
-        );
     }
 
     // UPDATE MAIN CATEGORY EDIT FROM DATA
     public function update(MainCateRequest $request, $cate_id)
     {
+        // try {
+            
+        // } catch (\Throwable $th) {
+            
+        // }
+
         $cate = MainCate::find($cate_id);
 
         if (!$cate) {
@@ -184,14 +212,35 @@ class MainCategoriesController extends Controller
             ]);
         }
 return $request;
-        return $cateInputVals = array_values($request->input('cate_bags'))[0];
+        $cateInputVals = array_values($request->input('cate_bags'))[0];
 
-        $cate->update([
-            'name'          => $cateInputVals['cate_name'],
-            'trans_lang'    => $cateInputVals['cate_abbr'],
-            'status'        => $cateInputVals['cate_stat'],
-            'photo'         => $cateInputVals->cate_name,
-        ]);
+        // if (!array_key_exists('cate_stat', $cateInputVals)) {
+        //     $cateStatus = array_merge($cateInputVals, ['cate_status' => 0])['cate_status'];
+        // } else {
+        //     $cateStatus = intval($cateInputVals['cate_stat']);
+        // }
+
+        // // return $cateStatus;
+
+        // if ($request->has('cate_imag')) {
+        //     return 'var';
+        // } else {
+        //     return 'yok';
+        // }
+        
+        
+
+        // $cate->update([
+        //     'name'          => $cateInputVals['cate_name'],
+        //     'trans_lang'    => $cateInputVals['cate_abbr'],
+        //     'status'        => $cateInputVals['cate_stat'],
+        //     'photo'         => $cateInputVals->cate_name
+        // ]);
+
+        // return redirect()->rout('admin.main.cates')->with([
+        //     'success' => 'Updated Successfully'
+        // ]);
+
     }
 
 }
