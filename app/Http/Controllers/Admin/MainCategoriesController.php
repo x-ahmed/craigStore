@@ -203,43 +203,72 @@ class MainCategoriesController extends Controller
         // } catch (\Throwable $th) {
             
         // }
-
+        
+        // DB MAIN CATEGORY OF AN ID TO BE EDITED
         $cate = MainCate::find($cate_id);
 
+        // DB MAIN CATEGORY EXISTANCE CHECK
         if (!$cate) {
+
+            // REDIRECT TO MAIN CATEGORIES TABLE WITH ERRO MESSAGE
             return redirect()->route('admin.main.cates')->with([
                 'error' => 'No such main category'
             ]);
         }
-return $request;
-        $cateInputVals = array_values($request->input('cate_bags'))[0];
 
-        // if (!array_key_exists('cate_stat', $cateInputVals)) {
-        //     $cateStatus = array_merge($cateInputVals, ['cate_status' => 0])['cate_status'];
-        // } else {
-        //     $cateStatus = intval($cateInputVals['cate_stat']);
-        // }
+        // CONVERT THE REQUEST DATA TO AN ARRAY AND ONLY RETRIEVE THE ONE ALREADY EXIST 
+        $cateInputVals = array_values(      // ARRAY CONVERSION
+            $request->input('cate_bags')    // CATEGORY ARRAY OF THE REQUEST OBJECT
+        )[0];                               // CATEGORY ARRAY RETRIEVEMENT
 
-        // // return $cateStatus;
+        // CATEGORY NOT ACTIVE CHECK (STATUS NOT CHECK SO IT MUST EQUAL ZERO)
+        if (
+            !array_key_exists(      // CHECK FOR ARRAY KEY NAME
+                'cate_stat',        // STATUS KEY NAME
+                $cateInputVals      // ARRAY TO LOOK
+            )
+        ) {
+            // ADD STATUS VALUE OF ZERO TO THE ARRAY
+            $cateStatus = array_merge(      // METHOD TO ADD NEW KEY & VALUE TO AN EXISTANCE ARRAY
+                $cateInputVals,             // ARRAY TO ADD
+                [
+                    'cate_status' => 0      // KAY AND VALUE TO BE ADDED
+                ]
+            )['cate_status'];               // VALUE ADDED RETRIEVEMENT
+        } else {
+            
+            // CONVERT THE ALREADY EXIST ACTIVE VALUE FROM A STRING TO AN INTEGER
+            $cateStatus = intval(               // CONVERSION METHOD
+                $cateInputVals['cate_stat']     // VALUE EXIST RETRIEVEMENT
+            );
+        }
 
-        // if ($request->has('cate_imag')) {
-        //     return 'var';
-        // } else {
-        //     return 'yok';
-        // }
-        
-        
+        // UPDATE STATEMENT OF NEW VALUE TO DATABASE 
+        $cate->update([
+            'name'          => $cateInputVals['cate_name'],     // CATEGORY NAME
+            'trans_lang'    => $cateInputVals['cate_abbr'],     // CATEGORY TRANSLATION LANG
+            'status'        => $cateStatus                      // CATEGORY STATUS
+        ]);
 
-        // $cate->update([
-        //     'name'          => $cateInputVals['cate_name'],
-        //     'trans_lang'    => $cateInputVals['cate_abbr'],
-        //     'status'        => $cateInputVals['cate_stat'],
-        //     'photo'         => $cateInputVals->cate_name
-        // ]);
+        // REQUEST DATA HAS IMAGE CHECK
+        if ($request->has('cate_imag')) {
+            // REST INPUTS ARRAY NOT EMPTY CHECK
+            if (!empty($cateInputVals)) {
+                
+                // UPLOAD CATEGORY IMAGE TO ITS FOLDRER AND RETURN ITS PATH
+                $imgPath = uploadFile('main_cates', $request->cate_imag);
 
-        // return redirect()->rout('admin.main.cates')->with([
-        //     'success' => 'Updated Successfully'
-        // ]);
+                // UPDATE STATEMENT OF NEW IMAGE TO DATABASE
+                $cate->update([
+                    'photo' => $imgPath     // CATEGORY IMAGE
+                ]);
+            }
+        }
+
+        // REDIRECT TO ADMIN MAIN CATEGORIES TABLE
+        return redirect()->route('admin.main.cates')->with([
+            'success' => 'Updated Successfully'
+        ]);
 
     }
 

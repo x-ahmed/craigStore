@@ -173,7 +173,7 @@
                                                             <input
                                                                 type="checkbox"
                                                                 name="cate_bags[0][cate_stat]"
-                                                                value="{{old('status', $cate->status)}}"
+                                                                value="1{{--old('status', $cate->status)--}}"
                                                                 id="switcheryColor4"
                                                                 class="switchery"
                                                                 data-color="success"
