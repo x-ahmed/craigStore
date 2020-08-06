@@ -121,7 +121,11 @@
                                                         </div>
 
                                                         <div class="col-md-6">
-                                                            <div class="form-group" style="margin-top: 30px;">
+                                                            <div class="form-group text-center" style="{{--margin-top: 30px;--}}">
+                                                                <label
+                                                                    style="display: block; margin-bottom: 13px;"
+                                                                    for="switcheryColor4"
+                                                                    class="card-title">الحالة - {{__('global.' .$lang->abbr)}}</label>
                                                                 <input
                                                                     type="checkbox"
                                                                     name="cate_bags[{{$index}}][cate_stat]"
@@ -130,10 +134,6 @@
                                                                     class="switchery"
                                                                     data-color="success"
                                                                     checked />
-
-                                                                <label
-                                                                for="switcheryColor4"
-                                                                class="card-title ml-1">الحالة - {{__('global.' .$lang->abbr)}}</label>
 
                                                                 @error('cate_bags.' .$index. '.cate_stat')
                                                                     <div>

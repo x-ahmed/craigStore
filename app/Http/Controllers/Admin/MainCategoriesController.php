@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MainCateRequest;
 use App\Models\MainCate;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File; 
 use Illuminate\Http\Request;
+// use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
 
 class MainCategoriesController extends Controller
@@ -68,7 +71,7 @@ class MainCategoriesController extends Controller
                 // CATEGORY BAG OF THE DEFAULT LANGUAGE 
                 return $val[$key] == $defaultLang;
             });
-
+            
             // DEFAULT LANGUAGE'S CATEGORY BAG AS ARRAY BECAUSE OF [0]
             $defaultCate = array_values(    // REMOVES THE ARRAY KEYS
                 $cateOfDefaultLang->all()   // CONVERTS OBJECT TO ARRAY
@@ -195,85 +198,203 @@ class MainCategoriesController extends Controller
         
     }
 
-    // UPDATE MAIN CATEGORY EDIT FROM DATA
+    // UPDATE MAIN CATEGORY EDIT FORM DATA
     public function update(MainCateRequest $request, $cate_id)
     {
+        
         try {
 
-            // DB MAIN CATEGORY OF AN ID TO BE EDITED
+            // FIND MAIN CATEGORY OF THE DEFAULT LANGUAGE
             $cate = MainCate::find($cate_id);
 
-            // DB MAIN CATEGORY EXISTANCE CHECK
+            // CHECK MAIN CATEGORY NOT EXIST IN DATABASE
             if (!$cate) {
 
-                // REDIRECT TO MAIN CATEGORIES TABLE WITH ERRO MESSAGE
-                return redirect()->route('admin.main.cates')->with([
+                // REDIRECT TO MAIN CATEGORY TABLE WITH ERROR MESSAGE
+                return redirect()->route('admin.main.cate.edit')->with([
                     'error' => 'No such main category'
                 ]);
             }
+            
+            // START DATABASE STATEMENTS TRANSACTIONS
+            DB::beginTransaction();
 
-            // CONVERT THE REQUEST DATA TO AN ARRAY AND ONLY RETRIEVE THE ONE ALREADY EXIST 
-            $cateInputVals = array_values(      // ARRAY CONVERSION
-                $request->input('cate_bags')    // CATEGORY ARRAY OF THE REQUEST OBJECT
-            )[0];                               // CATEGORY ARRAY RETRIEVEMENT
-
-            // CATEGORY NOT ACTIVE CHECK (STATUS NOT CHECK SO IT MUST EQUAL ZERO)
-            if (
-                !array_key_exists(      // CHECK FOR ARRAY KEY NAME
-                    'cate_stat',        // STATUS KEY NAME
-                    $cateInputVals      // ARRAY TO LOOK
-                )
-            ) {
-                // ADD STATUS VALUE OF ZERO TO THE ARRAY
-                $cateStatus = array_merge(      // METHOD TO ADD NEW KEY & VALUE TO AN EXISTANCE ARRAY
-                    $cateInputVals,             // ARRAY TO ADD
-                    [
-                        'cate_status' => 0      // KAY AND VALUE TO BE ADDED
-                    ]
-                )['cate_status'];               // VALUE ADDED RETRIEVEMENT
-            } else {
+            // NEW IMAGE UPLOADED CHECK
+            if ($request->has('cate_imag')) {
                 
-                // CONVERT THE ALREADY EXIST ACTIVE VALUE FROM A STRING TO AN INTEGER
-                $cateStatus = intval(               // CONVERSION METHOD
-                    $cateInputVals['cate_stat']     // VALUE EXIST RETRIEVEMENT
+                // CHECK MAIN CATEGORY EXISTANCE IN DATABASE
+                if ($cate) {
+                    
+                    // DELETE THE OLD MAIN CATEGORY IMAGE FROM SERVER FOLDER
+                    deleteFile($cate->photo);
+                }
+
+                // NEW UPLOADED TO SERVER MAIN CATEGORY IMAGE PATH TO BE STORED IN DATABASE
+                $imgPath = uploadFile(
+                    'main_cates',           // SERVER FOLDER WHERE TO UPLOAD
+                    $request->cate_imag     // FILE NAME WHICH TO STORE
+                );
+
+                // DATABASE UPDATE NEW IMAGE STATEMENT
+                $cate->update([
+                    'photo' => $imgPath
+                ]);
+
+            }
+
+            // MAIN CATEGORY ARRAY OF INPUT DATA FOR THE DEFAULT LANGUAGE
+            $defLangCate =  array_values(
+                $request->cate_bags
+            )[0];
+
+            // MERGE THE TRANSLATION LANGUAGE VALUE OF ZERO AS IT IS THE DEFAULT LANGUAGE
+            $defCateTrans = array_merge(
+                $defLangCate,           // MAIN CATEGORY ARRAY OF INPUT DATA FOR THE DEFAULT LANGUAGE
+                [
+                    'cate_trans' => 0   // KEY AND VALUE TO BE ADDED TO THE DEFAULT MAIN CATEGORY ARRAY DATE
+                ]
+            )['cate_trans'];            // RETRIEVE THE MERGED VALUE OF TRANSLATION LANGUAGE KEY
+
+            // CHECK DEFAULT MAIN CATEGORY IS EDITED TO BE DEACTIVATED
+            if (!array_key_exists('cate_stat', $defLangCate)) {
+                
+                $defCateStat = array_merge(     // APPEND THE VALUE OF ZERO FOR DEACTIVATION
+                    $defLangCate,               // MAIN CATEGORY ARRAY OF INPUT DATA FOR THE DEFAULT LANGUAGE
+                    [
+                        'cate_stat' => 0        // KEY AND VALUE OF DEACTIVATION TO BE MERGED TO THE ARRAY
+                    ]
+                )['cate_stat'];                 // RETRIEVEMENT OF THE THE MERGED DEFAULT MAIN CATEGORY STATUS
+            } else {
+
+                $defCateStat = intval(          // CONVERT THE VALUE OF ACTIVATION FROM STRING AS INSERTED TO INTEGER
+                    $defLangCate['cate_stat']   // DEFAULT MAIN CATEGORY ACTIVATION INITIALLY INSERTED VALUE
                 );
             }
 
-            // UPDATE STATEMENT OF NEW VALUE TO DATABASE 
+            // DEFAULT LANGUAGE MAIN CATEGORY UPDATE STATEMENT
             $cate->update([
-                'name'          => ucfirst($cateInputVals['cate_name']),        // CATEGORY NAME
-                'trans_lang'    => strtoupper($cateInputVals['cate_abbr']),     // CATEGORY TRANSLATION LANG
-                'status'        => $cateStatus                                  // CATEGORY STATUS
-            ]);
+                    'name'          => ucfirst($defLangCate['cate_name']),      // DEFAULT MAIN CATEGORY NAME STARTED WITH UPPER CASE LETTER
+                    'trans_lang'    => strtoupper($defLangCate['cate_abbr']),   // DEFAULT MAIN CATEGORY ABBREVIATION OF TRANSLATION LANGUAGE IN UPPDER CASE
+                    'trans_of'      => $defCateTrans,                           // DEFAULT MAIN CATEGORY TRANSLATION LANGUAGE WHICH IS BASICALLY ZERO
+                    'status'        => $defCateStat                             // DEFAULT MAIN CATEGORY STATUS VALUE ZERO OR ONE
+                ]);
+    
+            ###################################################
+            
+            // ARRAY OF ALL DEFAULT AND TRANSLATED CATEGORIES
+            $cateInDiffLangs =  array_values(
+                $request->cate_bags
+            );
+            
+            // CHECK ALL DEFAULT AND TRANSLATED CATEGORIES
+            if (isset($cateInDiffLangs) && count($cateInDiffLangs) > 0) {
+    
+                // CHECK DEFAULT CATEGORY EXISTS IN GENERAL ARRAY
+                if (array_key_exists(0, $cateInDiffLangs)) {
 
-            // REQUEST DATA HAS IMAGE CHECK
-            if ($request->has('cate_imag')) {
-                // REST INPUTS ARRAY NOT EMPTY CHECK
-                if (!empty($cateInputVals)) {
-                    
-                    // UPLOAD CATEGORY IMAGE TO ITS FOLDRER AND RETURN ITS PATH
-                    $imgPath = uploadFile('main_cates', $request->cate_imag);
-
-                    // UPDATE STATEMENT OF NEW IMAGE TO DATABASE
-                    $cate->update([
-                        'photo' => $imgPath     // CATEGORY IMAGE
-                    ]);
+                    // REMOVE THE DEFAULT CATEGORY
+                    unset($cateInDiffLangs[0]);
                 }
-            }
+                
+                // CHECK ALL TRANSLATED CATEGORIES
+                if (isset($cateInDiffLangs) && count($cateInDiffLangs) > 0) {
 
-            // REDIRECT TO ADMIN MAIN CATEGORIES TABLE WITH SUCCESS MESSAGE
+                    // TRANSLATED CATEGORIES LOOP
+                    foreach ($cateInDiffLangs as $cateInOneLang) {
+                        
+                        // CHECK IF THE TRANSLATED CATEGORY IS DEACTIVATED
+                        if (!array_key_exists('cate_stat', $cateInOneLang)) {
+
+                            $cateStat = array_merge(    // MERGE DEACTIVATION VALUE TO THE TRANSLATED CATEGORY ARRAY
+                                $cateInOneLang,         // TRANSLATED CATEGORY ARRAY WHERE TO MERGE
+                                [
+                                    'cate_stat' => 0    // DEACTIVATION KAY AND VALUE TO BE MERGED
+                                ]
+                            )['cate_stat'];             // RETRIEVEMENT OF THE DEACTIVATION VALUE ADDED
+                        } else {
+
+                            $cateStat = intval(                 // CONVERT THE DEFAULT INSERTED ACTIVATION VALUE FROM A STRING TO INTEGER
+                                $cateInOneLang['cate_stat']     // THE DEFAULT INSERTED ACTIVATION STRING VALUE
+                            );
+                        }
+
+                        // ARRAY OF TRANSLATED CATEGORY DATA TO BE ADDED
+                        $cateTranslations[] = [
+                            'id'            => intval($cateInOneLang['cate_id']),               // TRANSLATED CATEGORY ID AS INTEGER VALUE
+                            'name'          => ucfirst($cateInOneLang['cate_name']),            // TRANSLATED CATEGORY NAME WITH FIRST LETTER IN UPPER CASE
+                            'trans_lang'    => strtoupper($cateInOneLang['cate_abbr']),         // TRANSLATED CATEGORY LANGUAGE OF TRANSLATION IN UPPER CASE
+                            'trans_of'      => intval($cateInOneLang['cate_trans']),            // TRANSLATED CATEGORY LANGUAGE OF TRANSLATION AS INTEGER
+                            'status'        => $cateStat                                        // TRANSLATED CATEGORY STATUS WHETHER ACTIVE OR NOT
+                        ];
+        
+                    }
+
+                }
+                
+            }
+            
+            // CHECK WHETHER ARRAY OF TRANSLATED CATEGORY DATA EXISTS AND  EMPTY 
+            if (isset($cateTranslations) && count($cateTranslations) > 0) {
+
+                // TRANSLATED CATEGORY DATA LOOP
+                foreach ($cateTranslations as $cateTranslation) {
+                    
+                    // DATABASE TRANSLATED CATEGORY OF AN ID
+                    $cateTranslationID = MainCate::find($cateTranslation['id']);
+
+                    // NEW IMAGE UPLOADED CHECK
+                    if ($request->has('cate_imag')) {
+
+                        // DATABASE TRANSLATED CATEGORY EXISTANCE CHECK
+                        if ($cateTranslationID) {
+
+                            // DELETE THE OLD TRANSLATED CATEGORY IMAGE FROM SERVER
+                            deleteFile($cateTranslationID->photo);
+                        }
+
+                        // UPLOAD THE NEW CATEGORY IMAGE TO ITS FOLDER ON SERVER
+                        $imgPath = uploadFile('main_cates', $request->cate_imag);
+
+                        // DATABASE UPDATE TRANSLATED CATEGORY IMAGE STATEMENT
+                        $cateTranslationID->update([
+                            'photo' => $imgPath
+                        ]);
+
+                    }
+
+                    // DATABASE UPDATE THE TRANSLATED CATEGORY DATA STATEMENT
+                    $cateTranslationID->update([
+                        'name'          => $cateTranslation['name'],            // TRANSLATED CATEGORY NAME
+                        'trans_lang'    => $cateTranslation['trans_lang'],      // TRANSLATED CATEGORY TRANSLATION LANGUAGE
+                        'trans_of'      => $cateTranslation['trans_of'],        // TRANSLATED CATEGORY DEFAULT LANGUAGE OF TRANSLATION
+                        'status'        => $cateTranslation['status']           // TRANSLATED CATEGORU STATUS WHETHE ACTIVE OR NOT
+                    ]);
+        
+                }
+
+            }
+            
+            // COMMIT DATABASE STATEMENTS TRANSACTIONS
+            DB::commit();
+
+            // REDIRECT TO MAIN CATEGORIES TABLE WITH SUCCESS MESSAGE
             return redirect()->route('admin.main.cates')->with([
                 'success' => 'Updated Successfully'
             ]);
-            
+    
+
         } catch (\Throwable $th) {
             
-            // REDIRECT TO ADMIN MAIN CATEGORIES TABLE ERROR MESSAGE
-            return redirect()->route('admin.main.cates')->with([
-                'error' => 'Something went terribly wrong'
-            ]);
-        }
+            // CHECK ERRORS AND IF EXIST DON'T IMPLEMENT ANY OF THE PREVIOUS TRANSACTIONS
+            DB::rollBack();
 
+            // REDIRECT TO MAIN CATEGORY EDIT FORM WITH ERROR MESSAGE
+            return redirect()->route('admin.main.cate.edit')->with([
+                'error' => 'something went terribly wrong'
+            ]);
+
+        }
+        
     }
 
 }

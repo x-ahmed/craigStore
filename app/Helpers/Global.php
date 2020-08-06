@@ -2,6 +2,7 @@
 
 use App\Models\Language;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\File; 
 
 /*
     ** HELPER FUNCTION THAT SELECTS LANGUAGES
@@ -65,4 +66,39 @@ use Illuminate\Support\Facades\Config;
         $path = 'images/' .$folder. '/' .$fileName;     // FILE PATH TO SAVE
 
         return $path;
+    }
+
+    /*
+    ** HELPER FUNCTION THAT
+    ** DELETES FILE
+    ** PARAMS:
+    **  - FIRST PARAM IS FILE URL FROM DATABASE
+    */
+
+    function deleteFile($fileURL)
+    {
+        $pathURL = implode(     // GLUE THE SLICED ARRAY BY "/" SEPARATOR TO BE A STRING OF FILE PATH
+            '/',                // THE GLUE SEPARATOR
+            array_slice(        // SLICE A NEW ARRAY OF THE LAST FOUR ELEMENTS WHICH REPRESENTS THE FILE PATH AFTER THE PROJECT BASE FILE
+                explode(        // CONVERT THE FILE PATH TO ARRAY SPLITTED BY "/"
+                    '/',        // SPLITTER
+                    parse_url($fileURL)['path']     // PARSE URL PATH TO GET RED OF "http://localhost"
+                ),
+                -4,             // THE RIGHT POSITION TO START FROM 
+                4               // NUMBER OF ELEMENTS TO BE SLICED
+            )
+        );
+        $fileServerPath = str_replace(
+            '\\',               // REPLACE THE BASE FOLER PATH LINUX SEPARATOR "\"
+            '/',                // WITH "/" 
+            base_path()         // THE PROJECT/SERVER BASE FOLDER
+        ). '/' .$pathURL;       // APPEND THE FOLDER BASE PATH WITH THE DESIRED FILE URL
+
+        // FILE EXISTANCE CHECK IN SERVER PATH
+        if (File::exists($fileServerPath))
+        {
+            // DELETE THE DESIRED FILE
+            File::delete($fileServerPath);
+        }
+
     }
