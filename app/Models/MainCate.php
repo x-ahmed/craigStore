@@ -93,4 +93,11 @@ class MainCate extends Model
 
     // MAIN CATEGORU TRANSLATION LANGUAGE MUTATOR FOR UPPERCASE(CREATE FORM)
 
+    // CATERGORIES RELATION WITH TRANLATION LANGUAGES.
+    public function trans_cates()
+    {
+        // RETURN ONE MORE TRANSLATED CATEGORY
+        return $this->hasMany(self::class, 'trans_of');
+    }
+
 }
