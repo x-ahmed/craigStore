@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\MainCate;
 use App\models\Vendor;
 use Illuminate\Http\Request;
 
@@ -26,7 +27,21 @@ class VendorsController extends Controller
     // SHOW VENDOR CREATION FORM
     public function create()
     {
-        # code...
+        // ADMIN DEFAULT LANGUAGE
+        $defLang = getDefaultLang();
+
+        // DATABASE ACTIVE DEFAULT MAIN CATEGORIES
+        $cates = MainCate::where(
+            'trans_lang',
+            '=',
+            $defLang
+        )->active()->get();
+
+        // VENDORS CREATION FORM VIEW
+        return view(
+            'admin.vendors.create',
+            compact('cates')
+        );
     }
 
     // STORE VENDOR CREATION FORM DATA

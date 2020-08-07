@@ -47,7 +47,7 @@
                             <a href="">
                                    <i class="la la-group"></i>
                                    <span class="menu-title" data-i18n="nav.dash.main">الاقسام الرئيسيه</span>
-                            <span class="badge badge badge-danger badge-pill float-right mr-2">{{App\Models\MainCate::count()}}</span>
+                            <span class="badge badge badge-danger badge-pill float-right mr-2">{{App\Models\MainCate::where('trans_of',0)->count()}}</span>
                             </a>
                             <ul class="menu-content">
                                    <li class="active">
@@ -72,7 +72,7 @@
                                           class="menu-title"
                                           data-i18n="nav.dash.main">المتاجر</span>
                                    <span
-                                          class="badge badge badge-success badge-pill float-right mr-2"></span>
+                                          class="badge badge badge-success badge-pill float-right mr-2">{{App\Models\Vendor::count()}}</span>
                             </a>
                             <ul class="menu-content">
                                    <li class="active">
