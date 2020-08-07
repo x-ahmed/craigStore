@@ -61,6 +61,13 @@ return [
             'url'           => env('APP_URL').'/public',
             'visibility'    => 'public',
         ],
+        
+        'vendors' => [      // VENDORS IMAGES
+            'driver'        => 'local',
+            'root'          => base_path(). '/assets/images/vendors/',
+            'url'           => env('APP_URL').'/public',
+            'visibility'    => 'public',
+        ],
 
         's3' => [
             'driver' => 's3',

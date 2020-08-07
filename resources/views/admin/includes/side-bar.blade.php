@@ -78,13 +78,13 @@
                                    <li class="active">
                                           <a
                                                  class="menu-item"
-                                                 href=""
+                                                 href="{{route('admin.vendors')}}"
                                                  data-i18n="nav.dash.ecommerce">عرض كل المتاجر</a>
                                    </li>
                                    <li>
                                           <a
                                                  class="menu-item"
-                                                 href=""
+                                                 href="{{route('admin.vendor.create')}}"
                                                  data-i18n="nav.dash.crypto">اضافة متجر جديد</a>
                                    </li>
                             </ul>

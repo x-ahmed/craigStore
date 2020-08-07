@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\models\Vendor;
 use Illuminate\Http\Request;
 
 class VendorsController extends Controller
@@ -10,7 +11,16 @@ class VendorsController extends Controller
     // SHOW VENDORS TABLE
     public function index()
     {
-        # code...
+        // DATABASE VENDORS WITH THEIR CATEGORIES
+        $vendors = Vendor::with([
+            'category'
+        ])->selection()->paginate(PAGINATION_COUNT);
+
+        // VENDORS TABLE VIEW
+        return view(
+            'admin.vendors.index',
+            compact('vendors')
+        );
     }
 
     // SHOW VENDOR CREATION FORM
