@@ -44,7 +44,7 @@ Route::group(   // AUTHORIZED ADMIN ROUTES GROUP
             'DashboardController@index'
         )->name('admin.dashboard');
 
-        ####################################### START LANGUAGES ROUTE #######################################
+        ####################################### START LANGUAGES ROUTES #######################################
             Route::group(   // LANGUAGES ROUTES GROUP
                 [
                     'prefix' => 'languages'     // URL PREFIX
@@ -87,9 +87,9 @@ Route::group(   // AUTHORIZED ADMIN ROUTES GROUP
 
                 }
             );
-        ####################################### END LANGUAGES ROUTE #######################################
+        ####################################### END LANGUAGES ROUTES #######################################
 
-        ####################################### START MAIN CATEGORIES ROUTE #######################################
+        ####################################### START MAIN CATEGORIES ROUTES #######################################
         Route::group(   // MAIN CATEGORIES ROUTES GROUP
             [
                 'prefix' => 'main-categories'       // URL PREFIX
@@ -132,7 +132,52 @@ Route::group(   // AUTHORIZED ADMIN ROUTES GROUP
 
             }
         );
-    ####################################### END MAIN CATEGORIES ROUTE #######################################
+        ####################################### END MAIN CATEGORIES ROUTES #######################################
+
+        ####################################### START VENDORS ROUTES #######################################
+        Route::group(   // VENDORS ROUTES GROUP
+            [
+                'prefix' => 'vendors'       // URL PREFIX
+            ],
+            function () {
+
+                // MAIN TABLE ROUTE
+                Route::get(
+                    '/',
+                    'VendorsController@index'
+                )->name('admin.vendors');
+
+                // CREATE FORM ROUTE
+                Route::get(
+                    'create',
+                    'VendorsController@create'
+                )->name('admin.vendor.create');
+                // SAVE FORM ROUTE
+                Route::post(
+                    'save',
+                    'VendorsController@save'
+                )->name('admin.vendor.save');
+
+                // EDIT FORM ROUTE
+                Route::get(
+                    'edit/{vendor_id}',
+                    'VendorsController@edit'
+                )->name('admin.vendor.edit');
+                // UPDATE FORM ROUTE
+                Route::post(
+                    'update/{vendor_id}',
+                    'VendorsController@update'
+                )->name('admin.vendor.update');
+
+                // DELETE ROUTE
+                Route::get(
+                    'delete/{vendor_id}',
+                    'VendorsController@destroy'
+                )->name('admin.vendor.delete');
+
+            }
+        );
+        ####################################### END VENDORS ROUTES #######################################
 
     }
 );
