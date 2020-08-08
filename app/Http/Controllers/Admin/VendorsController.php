@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\VendorRequest;
 use App\Models\MainCate;
 use App\models\Vendor;
+use App\Notifications\VendorCreated;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class VendorsController extends Controller
 {
@@ -14,9 +16,9 @@ class VendorsController extends Controller
     public function index()
     {
         // DATABASE VENDORS WITH THEIR CATEGORIES
-        $vendors = Vendor::with([
+        $vendors = Vendor::/*with([
             'category'
-        ])->selection()->paginate(PAGINATION_COUNT);
+        ])->*/selection()->paginate(PAGINATION_COUNT);
 
         // VENDORS TABLE VIEW
         return view(
@@ -78,7 +80,7 @@ class VendorsController extends Controller
                 );
                 
                 // CREATE NEW VENDOR DATABASE STATEMENT
-                Vendor::create([
+                $vendor = Vendor::create([
                     'name'      => $request->input('vend-name'),     // REQUEST VENDOR NAME
                     'status'    => $vendStat,                        // REQUEST VENDOR STATUS
                     'cate_id'   => $request->input('vend-cate'),     // REQUEST VENDOR CATEGORY
@@ -87,21 +89,30 @@ class VendorsController extends Controller
                     'address'   => $request->input('vend-addr'),     // REQUEST VENDOR MOBILE
                     'logo'      => $vendLogo,                        // REQUEST VENDOR LOGO
                 ]);
+
+                // NOTIFY WITH AN EMAIL
+                Notification::send(
+                    $vendor,                    // SENDER
+                    new VendorCreated($vendor)  // RECIEVER
+                );
+
             } else {
 
                 // REDIRECT TO VENDOR CREATION FORM VIEW WITH ERROR MESSAGE
                 return redirect()->route('admin.vendor.create')->with([
-                    'error' => 'Please upload the vendor logo'
+                    'error' => 'Please upload the vendor\'s logo'
                 ]);
             }
 
             // REDIRECT TO VENDORS INDEX TABLE VIEW
             return redirect()->route('admin.vendors')->with([
-                'success' => 'Vendor has been stored successfully'
+                'success' => 'Stored successfully'
             ]);
             
         } catch (\Throwable $th) {
             
+            return $th;
+
             // REDIRECT TO VENDOR CREATION FORM VIEW WITH ERROR MESSAGE
             return redirect()->route('admin.vendor.create')->with([
                 'error' => 'Something went terribly wrong'
