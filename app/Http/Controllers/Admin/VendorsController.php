@@ -111,7 +111,7 @@ class VendorsController extends Controller
             
         } catch (\Throwable $th) {
             
-            return $th;
+            // return $th;
 
             // REDIRECT TO VENDOR CREATION FORM VIEW WITH ERROR MESSAGE
             return redirect()->route('admin.vendor.create')->with([
