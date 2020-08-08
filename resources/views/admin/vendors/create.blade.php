@@ -124,16 +124,15 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="vend-mail">البريد الالكتروني</label>
-                                                        <input 
-                                                            type="email"
-                                                            class="form-control"
-                                                            id="vend-mail"
-                                                            name="vend-mail"
-                                                            placeholder="ادخل البريد الالكتروني" />
-                                                        
-                                                        @error('vend-mail')
-                                                            <span class="text-danger">{{$message}}</span>
+                                                        <label for="vend_logo">الشعار</label>
+                                                        <input
+                                                            type="file"
+                                                            class="form-control form-control-lg form-control-file"
+                                                            name="vend_logo"
+                                                            id="vend_logo" />
+
+                                                        @error('vend_logo')
+                                                                <span class="text-danger">{{$message}}</span>
                                                         @enderror
 
                                                     </div>
@@ -172,15 +171,16 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="vend-logo">الشعار</label>
-                                                        <input
-                                                            type="file"
-                                                            class="form-control form-control-file"
-                                                            name="vend-logo"
-                                                            id="vend-logo" />
-
-                                                        @error('vend-logo')
-                                                                <span class="text-danger">{{$message}}</span>
+                                                        <label for="vend-mail">البريد الالكتروني</label>
+                                                        <input 
+                                                            type="email"
+                                                            class="form-control"
+                                                            id="vend-mail"
+                                                            name="vend-mail"
+                                                            placeholder="ادخل البريد الالكتروني" />
+                                                        
+                                                        @error('vend-mail')
+                                                            <span class="text-danger">{{$message}}</span>
                                                         @enderror
 
                                                     </div>
@@ -202,18 +202,19 @@
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label for="vend-addr">العنوان</label>
+                                                        {{-- <label for="vend-addr">العنوان</label> --}}
                                                         
                                                         @error('vend-addr')
-                                                            <span style="display: block;" class="text-danger">{{$message}}</span>
+                                                            <span class="text-danger">{{$message}}</span>
                                                         @enderror
                                                         
                                                         <input
                                                             type="text"
-                                                            class="form-control"
+                                                            class="form-control form-control"
                                                             id="pac-input"
                                                             name="vend-addr"
                                                             placeholder="ادخل عنوان المتجر" />
@@ -221,6 +222,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            
                                         </div>
 
                                         <div id="map" style="height: 500px; width:100%"></div>
@@ -371,7 +373,7 @@
         }
         // Create the search box and link it to the UI element.
         var input = document.getElementById('pac-input');
-        $("#pac-input").val("أبحث هنا ");
+        $("#pac-input").val("");
         var searchBox = new google.maps.places.SearchBox(input);
         map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input);
         // Bias the SearchBox results towards current map's viewport.
