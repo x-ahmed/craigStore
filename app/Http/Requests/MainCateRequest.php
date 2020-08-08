@@ -59,7 +59,7 @@ class MainCateRequest extends FormRequest
             'cate_bags.*.cate_stat.in'                  => 'The value entered is invalid',                              // MAIN CATEGORY STATUS OPTIONS MESSAGE
 
             'cate_imag.required_without'    => 'Please insert a category image',                         // MAIN CATEGORY IMAGE REQUIRED MESSAGE
-            'cate_imag.mimes'               => 'only "jpg", "jpeg", and "png" are the available',        // MAIN CATEGORY IMAGE EXTENSIONS MESSAGE
+            'cate_imag.mimes'               => 'Only "jpg", "jpeg", and "png" are available',        // MAIN CATEGORY IMAGE EXTENSIONS MESSAGE
 
         ];
     }

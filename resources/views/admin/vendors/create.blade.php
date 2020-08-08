@@ -206,6 +206,11 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="vend-addr">العنوان</label>
+                                                        
+                                                        @error('vend-addr')
+                                                            <span style="display: block;" class="text-danger">{{$message}}</span>
+                                                        @enderror
+                                                        
                                                         <input
                                                             type="text"
                                                             class="form-control"
@@ -213,9 +218,6 @@
                                                             name="vend-addr"
                                                             placeholder="ادخل عنوان المتجر" />
                                                         
-                                                        @error('vend-addr')
-                                                            <span class="text-danger">{{$message}}</span>
-                                                        @enderror
                                                     </div>
                                                 </div>
                                             </div>

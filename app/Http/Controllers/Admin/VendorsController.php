@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\VendorRequest;
 use App\Models\MainCate;
 use App\models\Vendor;
 use Illuminate\Http\Request;
@@ -45,7 +46,7 @@ class VendorsController extends Controller
     }
 
     // STORE VENDOR CREATION FORM DATA
-    public function save(Request $request)
+    public function save(VendorRequest $request)
     {
         return $request;
     }
