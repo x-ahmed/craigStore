@@ -45,9 +45,9 @@ class VendorsController extends Controller
     }
 
     // STORE VENDOR CREATION FORM DATA
-    public function save()
+    public function save(Request $request)
     {
-        # code...
+        return $request;
     }
 
     // SHOW VENDOR EDIT FORM
