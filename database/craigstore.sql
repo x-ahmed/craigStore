@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 09, 2020 at 02:26 AM
+-- Generation Time: Aug 09, 2020 at 03:59 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.5
 
@@ -196,12 +196,7 @@ CREATE TABLE `vendors` (
 --
 
 INSERT INTO `vendors` (`id`, `name`, `logo`, `mobile`, `password`, `address`, `email`, `cate_id`, `status`, `created_at`, `updated_at`) VALUES
-(2, 'ahmed', 'images/vendors/BGVTTpY3Ca3PBexgYZw9sURjoaljiPkgyIfjPHWx.png', '9678954367819', '', 'benha', 'ahmed@gmail.com', 58, 1, '2020-08-08 02:19:23', '2020-08-08 02:19:23'),
-(3, 'mohamed', 'images/vendors/yBFTVbgc5Cy5JRuIaTp9QLN5ZK7e7wN85uymYE4T.jpeg', '3478945235176', '', 'cairo', 'fdsljfsa2d2d@dsffa.com', 74, 0, '2020-08-08 10:39:56', '2020-08-08 10:39:56'),
-(4, 'test', 'images/vendors/ymulSspQiXymtxXX9eI0HZBlXjGsBcqlBEZFlvBk.jpeg', '4709651670934', '', 'zayed', 'fads@dsf.com', 62, 0, '2020-08-08 10:49:14', '2020-08-08 10:49:14'),
-(10, 'new store', 'images/vendors/D8HCsQVjWkyc4gFYPF1hzCr5o3me4OKjKyjBhRig.jpeg', '6590432845712', '', 'benha', 'ahmed7678@gmail.com', 56, 0, '2020-08-08 16:22:43', '2020-08-08 16:22:43'),
-(12, 'vendor with password', 'images/vendors/x0UIwSfGafPFdRpGMmIC4dGaDDITF4mwJXLi3laM.jpeg', '8321094568234', '$2y$10$q7IXaBhyVNANu9BOiE0HNuMS.q5HHytffFXapXTzON21rCZRsjdgu', 'giza', 'sadfd@jfdsl.com', 74, 1, '2020-08-08 21:21:56', '2020-08-08 21:21:56'),
-(13, 'sarp', 'images/vendors/QFugl3RlRu08GiNNMWarOtNBpN0z5JnE7hcJuE24.png', '2375489764322', '$2y$10$W8rCx7y3BEHPfEVwE4SG8eO9ViaEIgYLkCH0QOH4vYrfEwUU9rrIa', 'zamalek', 'wqeasd@fds.com', 74, 1, '2020-08-08 21:39:31', '2020-08-08 21:39:31');
+(2, 'ahmed', 'images/vendors/BGVTTpY3Ca3PBexgYZw9sURjoaljiPkgyIfjPHWx.png', '9678954367819', '', 'benha', 'ahmed@gmail.com', 58, 1, '2020-08-08 02:19:23', '2020-08-08 02:19:23');
 
 --
 -- Indexes for dumped tables
@@ -302,7 +297,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `vendors`
 --
 ALTER TABLE `vendors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
