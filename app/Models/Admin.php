@@ -43,8 +43,13 @@ class Admin extends Authenticatable
     // PASSWORD MUTATOR
     public function setPasswordAttribute($val)
     {
-        // SAVE THE ADMIN PASSWORD HASHED IN DB
-        $this->attributes['password'] = bcrypt($val);
+        // NOT EMPTY CHECK
+        if (!empty($val)) {
+            
+            // SAVE THE ADMIN PASSWORD HASHED IN DB
+            $this->attributes['password'] = bcrypt($val);
+        }
+        
     }
 
 }

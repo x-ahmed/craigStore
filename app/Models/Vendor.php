@@ -23,6 +23,7 @@ class Vendor extends Model
         'name',
         'logo',
         'mobile',
+        'password',
         'address',
         'email',
         'cate_id',
@@ -38,6 +39,7 @@ class Vendor extends Model
      */
 
     protected $hidden = [
+        'password',
         'cate_id',
         'created_at',
         'updated_at'
@@ -80,6 +82,18 @@ class Vendor extends Model
     {
         // DISPLAY ACTIVE FOR ONE AND PENDING FOR ZERO
         return ($this->status == 1)? 'Active': 'Pending';
+    }
+
+    // PASSWORD MUTATOR
+    public function setPasswordAttribute($val)
+    {
+        // NOT EMPTY CHECK
+        if (!empty($val)) {
+            
+            // RETURN THE HASHED PASSWORD TO THE DATABASE
+            $this->attributes['password'] = bcrypt($val);
+        }
+        
     }
 
     // VENDORS RELATIONSHIP WITH MAIN CATEGORIES

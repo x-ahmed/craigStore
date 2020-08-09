@@ -65,8 +65,8 @@
                             @include('admin.includes.alerts.errors')
 
                             <div class="card-content collapse show">
-                                <div class="card-body card-dashboard">
-                                <table class="table display nowrap table-striped table-bordered{{--  scroll-horizontal --}}">
+                                <div class="card-body card-dashboard" style="overflow-x: auto;">
+                                <table class="table table-responsive display nowrap table-striped table-bordered{{--  scroll-horizontal --}}">
                                         <thead>
                                         <tr>
                                             <th class="text-center">الاسم</th>

@@ -127,7 +127,7 @@
                                                             <select
                                                                 id="lang-dire"
                                                                 name="lang-dire"
-                                                                class="select2 form-control">
+                                                                class="custom-select custom-select-lg">
 
                                                                 <optgroup label="من فضلك أختر اتجاه اللغة">
                                                                     <option
@@ -152,11 +152,35 @@
                                                             
                                                         </div>
                                                     </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group mt-1 text-center pt-1">
+                                                            <input
+                                                                type="checkbox"
+                                                                name="lang-stat"
+                                                                id="switcheryColor4"
+                                                                value="1"
+                                                                class="switchery"
+                                                                data-color="success"
+                                                                @if (old('status', $lang->status) == 1) checked @endif />
+                                                            
+                                                            <label
+                                                                style="margin-top: 10px"
+                                                                for="switcheryColor4"
+                                                                class="card-title ml-1">الحالة</label>
+
+                                                            @error('lang-stat')
+                                                                <div>
+                                                                    <span class="text-danger">{{$message}}</span>
+                                                                </div>
+                                                            @enderror
+
+                                                        </div>
+                                                    </div>
                                                 </div>
 
 
                                                 <div class="row">
-                                                    <div class="col-md-6">
+                                                    {{-- <div class="col-md-6">
                                                         <div class="form-group mt-1">
                                                             <input
                                                                 type="checkbox"
@@ -177,7 +201,7 @@
                                                             @enderror
 
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                             </div>
 

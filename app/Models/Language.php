@@ -62,15 +62,23 @@ class Language extends Model
     // NAME MUTATOR
     public function setNameAttribute($val)
     {
-        // CONVERT LANGUAGE NAME FIRST LETTER TO UPPERCASE
-        $this->attributes['name'] = ucfirst($val);
+        // NOT EMPTY CHECK
+        if (!empty($val)) {
+            
+            // CONVERT LANGUAGE NAME FIRST LETTER TO UPPERCASE
+            $this->attributes['name'] = ucfirst($val);
+        }
     }
     
     // ABBREVIATION MUTATOR
     public function setAbbrAttribute($val)
     {
-        // CONVERT THE LANGUAGE ABBREVIATION TO UPPERCASE
-        $this->attributes['abbr'] = strtoupper($val);
+        // NOT EMPTY CHECK
+        if (!empty($val)) {
+            
+            // CONVERT THE LANGUAGE ABBREVIATION TO UPPERCASE
+            $this->attributes['abbr'] = strtoupper($val);
+        }
     }
 
     /*

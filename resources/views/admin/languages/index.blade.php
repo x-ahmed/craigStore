@@ -66,58 +66,60 @@
 
                             <div class="card-content collapse show">
                                 <div class="card-body card-dashboard">
-                                    <table class="table display nowrap table-striped table-bordered ">
-                                        <thead>
-                                        <tr>
-                                            <th>الاسم</th>
-                                            <th>الاختصار</th>
-                                            <th>الاتجاه</th>
-                                            <th>الحالة</th>
-                                            <th>الإجراءات</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-
-                                        {{-- DB LANGUAGES --}}
-                                        @isset($langs)
-                                            @foreach($langs as $lang)
-                                            
-                                                <tr>
-                                                    <td>{{$lang->name}}</td>
-                                                    <td>{{$lang->abbr}}</td>
-                                                    <td>{{$lang->getDirection()}}</td>
-                                                    <td>{{$lang->getStatus()}}</td>
-                                                    <td>
-                                                        <div
-                                                            class="btn-group"
-                                                            role="group"
-                                                            aria-label="Basic example">
-                                                            
-                                                            <a
-                                                                href="{{route('admin.language.edit', $lang->id)}}"
-                                                                class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">
-                                                                
-                                                                <span>تعديل اللغه</span>
-                                                            </a>
-
-
-                                                            <a
-                                                                href="{{route('admin.language.delete', $lang->id)}}"
-                                                                class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">
-                                                            
-                                                                <span>حذف اللغه</span>
-                                                            </a>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-
-                                            {!! $langs->links() !!}
-
-                                        @endisset
+                                    <div class="table-responsive" style="overflow-x: auto;">
+                                        <table class="table display nowrap table-striped table-bordered ">
+                                            <thead>
+                                            <tr>
+                                                <th>الاسم</th>
+                                                <th>الاختصار</th>
+                                                <th>الاتجاه</th>
+                                                <th>الحالة</th>
+                                                <th>الإجراءات</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
                                         
-                                        </tbody>
-                                    </table>
+                                            {{-- DB LANGUAGES --}}
+                                            @isset($langs)
+                                                @foreach($langs as $lang)
+                                                
+                                                    <tr>
+                                                        <td>{{$lang->name}}</td>
+                                                        <td>{{$lang->abbr}}</td>
+                                                        <td>{{$lang->getDirection()}}</td>
+                                                        <td>{{$lang->getStatus()}}</td>
+                                                        <td>
+                                                            <div
+                                                                class="btn-group"
+                                                                role="group"
+                                                                aria-label="Basic example">
+                                                                
+                                                                <a
+                                                                    href="{{route('admin.language.edit', $lang->id)}}"
+                                                                    class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">
+                                                                    
+                                                                    <span>تعديل اللغه</span>
+                                                                </a>
+                                        
+                                        
+                                                                <a
+                                                                    href="{{route('admin.language.delete', $lang->id)}}"
+                                                                    class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">
+                                                                
+                                                                    <span>حذف اللغه</span>
+                                                                </a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                        
+                                                {!! $langs->links() !!}
+                                        
+                                            @endisset
+                                            
+                                            </tbody>
+                                        </table>
+                                    </div>
                                     <div class="justify-content-center d-flex">
 
                                     </div>

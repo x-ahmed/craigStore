@@ -84,7 +84,7 @@
                                                     @foreach (getActiveLangs() as $index => $lang)
                                                     <div class="row">
 
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-9">
                                                             <div class="form-group">
                                                                 <label for="cate-name">الاسم - {{__('global.' .$lang->abbr)}}</label>
                                                                 <input
@@ -120,7 +120,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-3">
                                                             <div class="form-group text-center" style="{{--margin-top: 30px;--}}">
                                                                 <label
                                                                     style="display: block; margin-bottom: 13px;"
@@ -149,12 +149,12 @@
                                                 @endif
 
                                                 <div class="row">
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label for="cate_imag">الصوره</label>
                                                             <input
                                                                 type="file"
-                                                                class="form-control form-control-file"
+                                                                class="form-control form-control-lg form-control-file"
                                                                 name="cate_imag"
                                                                 id="cate_imag" />
 

@@ -8,6 +8,7 @@ use App\Models\MainCate;
 use App\models\Vendor;
 use App\Notifications\VendorCreated;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 
 class VendorsController extends Controller
@@ -73,6 +74,9 @@ class VendorsController extends Controller
             // REQUEST LOGO CHECK
             if ($request->has('vend_logo')) {
                 
+                // START VALUES TRANSACTIONS TO DATABASE
+                DB::beginTransaction();
+
                 // HELPER UPLOAD FILE METHOD
                 $vendLogo = uploadFile(
                     'vendors',
@@ -88,19 +92,26 @@ class VendorsController extends Controller
                     'mobile'    => $request->input('vend-mobi'),     // REQUEST VENDOR ADDRESS
                     'address'   => $request->input('vend-addr'),     // REQUEST VENDOR MOBILE
                     'logo'      => $vendLogo,                        // REQUEST VENDOR LOGO
+                    'password'  => $request->input('vend-pass'),     // REQUEST VENDOR PASSWORD
                 ]);
 
-                // NOTIFY WITH AN EMAIL
-                Notification::send(
-                    $vendor,                    // SENDER
-                    new VendorCreated($vendor)  // RECIEVER
-                );
+                // DATABASE NEW VENDOR CREATED CHECK
+                if ($vendor) {
+                    // NOTIFY WITH AN EMAIL
+                    Notification::send(
+                        $vendor,                    // SENDER
+                        new VendorCreated($vendor)  // RECIEVER
+                    );
+                }
 
+                // COMMIT VALUES TO DATABASE
+                DB::commit();
+                
             } else {
 
                 // REDIRECT TO VENDOR CREATION FORM VIEW WITH ERROR MESSAGE
                 return redirect()->route('admin.vendor.create')->with([
-                    'error' => 'Please upload the vendor\'s logo'
+                    'error' => 'Please upload a logo'
                 ]);
             }
 
@@ -111,7 +122,8 @@ class VendorsController extends Controller
             
         } catch (\Throwable $th) {
             
-            // return $th;
+            // ROLLBACK IF ANY ERROR OCCURRED
+            DB::rollback();
 
             // REDIRECT TO VENDOR CREATION FORM VIEW WITH ERROR MESSAGE
             return redirect()->route('admin.vendor.create')->with([

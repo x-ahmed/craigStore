@@ -82,7 +82,7 @@
                                             </h4>
 
                                             <div class="row">
-                                                <div class="col-md-10">
+                                                <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="vend-name">الاسم</label>
                                                         <input
@@ -93,6 +93,22 @@
                                                             placeholder="ادخل اسم المتجر" />
 
                                                         @error('vend-name')
+                                                            <span class="text-danger">{{$message}}</span>
+                                                        @enderror
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="vend-mobi">التليفون</label>
+                                                        <input
+                                                            type="tel"
+                                                            id="vend-mobi"
+                                                            name="vend-mobi"
+                                                            class="form-control"
+                                                            placeholder="ادخل رقم التليفون" />
+
+                                                        @error('vend-mobi')
                                                             <span class="text-danger">{{$message}}</span>
                                                         @enderror
                                                         
@@ -187,15 +203,16 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="vend-mobi">التليفون</label>
+                                                        <label for="vend-pass">كلمة المرور</label>
                                                         <input
-                                                            type="text"
-                                                            id="vend-mobi"
-                                                            name="vend-mobi"
+                                                            type="password"
+                                                            id="vend-pass"
+                                                            name="vend-pass"
                                                             class="form-control"
-                                                            placeholder="ادخل رقم التليفون" />
+                                                            autocomplete="new-password"
+                                                            placeholder="ادخل كلمة المرور" />
 
-                                                        @error('vend-mobi')
+                                                        @error('vend-pass')
                                                             <span class="text-danger">{{$message}}</span>
                                                         @enderror
                                                         
