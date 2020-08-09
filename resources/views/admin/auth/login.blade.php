@@ -57,6 +57,7 @@
                                 <input
                                     type="password"
                                     name="password"
+                                    autocomplete="new-password"
                                     class="form-control form-control-lg input-lg"
                                     id="password"
                                     placeholder="أدخل كلمة المرور" />

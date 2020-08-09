@@ -134,15 +134,56 @@ class VendorsController extends Controller
     }
 
     // SHOW VENDOR EDIT FORM
-    public function edit()
+    public function edit($vendor_id)
     {
-        # code...
+        try {
+
+            // DATABASE VENDOR DATA
+            $vend = Vendor::find($vendor_id);
+
+            // VENDOR NOT EXIST CHECK
+            if (!$vend) {
+
+                // REDIRECT TO VENDORS INDEX TABLE WITH ERROR MESSAGE
+                return redirect()->route('admin.vendors')->with([
+                    'error' => 'No such vendor'
+                ]);
+            }
+
+            // ADMIN DEFAULT LANGUAGE
+            $defLang = getDefaultLang();
+
+            // DATABASE ACTIVE DEFAULT MAIN CATEGORIES
+            $cates = MainCate::where(
+                'trans_lang',
+                '=',
+                $defLang
+            )->active()->get();
+            
+            // VENDORS EDIT FORM
+            return view(
+                'admin.vendors.edit',
+                compact(
+                    'vend',
+                    'cates'
+                )
+            );
+
+        } catch (\Throwable $th) {
+            
+            // REDIRECT TO VENDORS INDEX TABLE WITH ERROR MESSAGE
+            return redirect()->route('admin.vendors')->with([
+                'error' => 'Something went terribly wrong'
+            ]);
+
+        }
+        
     }
 
     // UPDATE VENDOR EDIT FORM DATA
-    public function update()
+    public function update(VendorRequest $request, $vendor_id)
     {
-        # code...
+        return $request;
     }
 
     // DELETE VENDOR TABLE ROW

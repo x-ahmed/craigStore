@@ -32,8 +32,8 @@ class VendorRequest extends FormRequest
             'vend-cate' => 'required|exists:main_cates,id',                 // VENDOR CATEGORY SELECT INPUT
             'vend_logo' => 'required_without:edit|mimes:jpg,jpeg,png',      // VENDOR LOGO IMAGE INPUT
             'vend-mobi' => 'required|unique:vendors,mobile|max:14|regex:/(0)[0-9]/|not_regex:/[a-z]/|min:9',   // VENDOR MOBILE INPUT
-            'vend-addr' => 'required|string|max:500',                       // VENDOR ADDRESS INPUT
-            'vend-pass' => 'required|string|min:6',                         // VENDOR PASSWORD INPUT
+            'vend-addr' => 'required_without:edit|string|max:500',          // VENDOR ADDRESS INPUT
+            'vend-pass' => 'required_without:edit|string|min:6',            // VENDOR PASSWORD INPUT
         ];
     }
 
@@ -70,13 +70,13 @@ class VendorRequest extends FormRequest
             'vend-mobi.regex'       => 'Invalid mobile number',                     // VENDOR MOBILE INPUT REGEX MESSAGE
             'vend-mobi.not_regex'   => 'Invalid mobile number',                     // VENDOR MOBILE INPUT NOT REGEX MESSAGE
 
-            'vend-addr.required'    => 'Please Insert the vendor\'s address',   // VENDOR ADDRESS INPUT REQUIRED MESSAGE
-            'vend-addr.string'      => 'Invalid address value',                 // VENDOR ADDRESS INPUT STRING MESSAGE
-            'vend-addr.max'         => 'Invalid address value',                 // VENDOR ADDRESS INPUT MAX MESSAGE
+            'vend-addr.required_without'    => 'Please Insert the vendor\'s address',   // VENDOR ADDRESS INPUT REQUIRED MESSAGE
+            'vend-addr.string'              => 'Invalid address value',                 // VENDOR ADDRESS INPUT STRING MESSAGE
+            'vend-addr.max'                 => 'Invalid address value',                 // VENDOR ADDRESS INPUT MAX MESSAGE
 
-            'vend-pass.required'    => 'Please initiate the vendor\'s password',      // VENDOR PASSWORD INPUT REQUIRED MESSAGE
-            'vend-pass.string'      => 'Invalid input value',                         // VENDOR PASSWORD INPUT STRING MESSAGE
-            'vend-pass.min'         => 'Password must be at least 6 characters',      // VENDOR PASSWORD INPUT MINIMUM CHARACTERS MESSAGE
+            'vend-pass.required_without'    => 'Please initiate the vendor\'s password',      // VENDOR PASSWORD INPUT REQUIRED MESSAGE
+            'vend-pass.string'              => 'Invalid input value',                         // VENDOR PASSWORD INPUT STRING MESSAGE
+            'vend-pass.min'                 => 'Password must be at least 6 characters',      // VENDOR PASSWORD INPUT MINIMUM CHARACTERS MESSAGE
         ];
     }
 }
