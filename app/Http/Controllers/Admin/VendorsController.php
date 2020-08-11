@@ -323,9 +323,47 @@ class VendorsController extends Controller
     }
 
     // DELETE VENDOR TABLE ROW
-    public function delete()
+    public function destroy($vendorID)
     {
-        # code...
+        try {
+
+            // DATABASE VENDOR OF AN ID
+            $vend = Vendor::find($vendorID);
+            
+            // DATABASE VENDOR EXISTANCE CHECK
+            if (!$vend) {
+                
+                // REDIRECT TO VENDORS TABLE WITH ERROR MESSAGE
+                return redirect()->route('admin.vendors')->with([
+                    'error' => 'No such vendor'
+                ]);
+            }
+
+            // START DATABASE TRANSACTIONS
+            DB::beginTransaction();
+
+            // DELETE MAIN CATEGORY IMAGE FROM SERVER
+            deleteFile($vend->logo);
+
+            // DATABASE MAIN CATEGORY DELETE STATEMENT
+            $vend->delete();
+
+            // DATABASE COMMIT TRANSACTIONS
+            DB::commit();
+
+            // REDIRECT TO MAIN CATEGORIES TABLE WITH SUCCESS MESSAGE
+            return redirect()->route('admin.vendors')->with([
+                'success' => 'Deleted Successfully'
+            ]);
+
+        } catch (\Throwable $th) {
+            
+            // REDIRECT TO VENDORS TABLE WITH ERROR MESSAGE
+            return redirect()->route('admin.vendors')->with([
+                'error' => 'Something went terribly wrong'
+            ]);
+        }
+
     }
 
 }

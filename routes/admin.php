@@ -180,6 +180,12 @@ Route::group(   // AUTHORIZED ADMIN ROUTES GROUP
                     'delete/{vendor_id}',
                     'VendorsController@destroy'
                 )->name('admin.vendor.delete');
+                
+                // STATUS ROUTE
+                Route::get(
+                    'status/{vendor_id}',
+                    'VendorsController@changeStatus'
+                )->name('admin.vendor.status');
 
             }
         );

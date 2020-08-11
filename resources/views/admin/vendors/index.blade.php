@@ -110,7 +110,7 @@
                                                             </a>
                                                             
                                                             <a
-                                                                href=""
+                                                                href="{{route('admin.vendor.status', $vendor->id)}}"
                                                                 class="btn btn-outline-warning btn-min-width box-shadow-3 mr-1 mb-1">
                                                             
                                                                 <span>تفعيل</span>
