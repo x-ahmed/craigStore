@@ -366,4 +366,44 @@ class VendorsController extends Controller
 
     }
 
+    // ACTIVATE OR DEACTIVATE VENDOR WITH AN ID
+    public function changeStatus($vendID)
+    {
+        try {
+
+            // DATABASE VENDOR OF AN ID
+            $vend = Vendor::find($vendID);
+
+            // DATABASE VENDOR EXISTANCE CHECK
+            if (!$vend) {
+                
+                // REDIRECT TO VAENDORS TABLE WITH ERROR MESSAGE
+                return redirect()->route('admin.vendors')->with([
+                    'error' => 'No such vendor'
+                ]);
+            }
+
+            // CHANGE VENDOR'S STATUS
+            $vendStat = ($vend->status == 1)? 0: 1;
+
+            // DATABASE UPDATE VENDOR'S STATUS STATEMENT
+            $vend->update([
+                'status' => $vendStat
+            ]);
+
+            // REDIRECT TO VENDORS TABLE WITH SUCCESS MESSAGE
+            return redirect()->route('admin.vendors')->with([
+                'success' => 'Status changed successfully'
+            ]);
+
+        } catch (\Throwable $th) {
+            
+            // REDIRECT TO VENDORS TABLE WITH ERROR MESSAGE
+            return redirect()->route('admin.vendors')->with([
+                'error' => 'Something went terribly wrong'
+            ]);
+        }
+
+    }
+
 }
