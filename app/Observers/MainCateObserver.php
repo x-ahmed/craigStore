@@ -39,7 +39,10 @@ class MainCateObserver
      */
     public function deleted(MainCate $mainCate)
     {
-        //
+        // ASSIGN WHICH MAIN CATEGORY HAS DEFAULT LANGUAGE
+        $mainCate = ($mainCate->translation_of == 0) ? $mainCate : $mainCate->def_cate;
+        // DELETE TRANSLATED CATEGORIES OF THE MAIN CATEGORY
+        $mainCate->trans_cates()->delete();
     }
 
     /**
@@ -50,7 +53,7 @@ class MainCateObserver
      */
     public function restored(MainCate $mainCate)
     {
-        //
+        // 
     }
 
     /**

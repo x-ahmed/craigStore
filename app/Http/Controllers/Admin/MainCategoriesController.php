@@ -427,11 +427,17 @@ class MainCategoriesController extends Controller
                 ]);
             }
 
+            // START DATABASE TRANSACTIONS
+            DB::beginTransaction();
+
             // DELETE MAIN CATEGORY IMAGE FROM SERVER
             deleteFile($mainCate->photo);
 
             // DATABASE MAIN CATEGORY DELETE STATEMENT
             $mainCate->delete();
+
+            // DATABASE COMMIT TRANSACTIONS
+            DB::commit();
 
             // REDIRECT TO MAIN CATEGORIES TABLE WITH SUCCESS MESSAGE
             return redirect()->route('admin.main.cates')->with([
@@ -439,6 +445,9 @@ class MainCategoriesController extends Controller
             ]);
 
         } catch (\Throwable $th) {
+            
+            // DATABASE ROLL-BACK
+            DB::rollback();
             
             // REDIRECT TO MAIN CATEGORIES TABLE WITH ERROR MESSAGE
             return redirect()->route('admin.main.cates')->with([
