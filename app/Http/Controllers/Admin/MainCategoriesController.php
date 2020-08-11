@@ -397,4 +397,56 @@ class MainCategoriesController extends Controller
         
     }
 
+    // DELETE A MAIN CATEGORY FROM DATABASE
+    public function destroy($mainCateID)
+    {
+        
+        try {
+
+            // DATABASE MAIN CATEGORY ROW
+            $mainCate = MainCate::find($mainCateID);
+            
+            // DATABASE MAIN CATEGORY NOT EXIST CHECK
+            if (!$mainCate) {
+                
+                // REDIRECT TO MAIN CATEGORIES TABLE WITH ERROR MESSAGE
+                return redirect()->route('admin.main.cates')->with([
+                    'error' => 'No such main category'
+                ]);
+            }
+
+            // MAIN CATEGORY'S VENDORS
+            $vends = $mainCate->vendors();
+
+            // MAIN CATEGORY HAS VENDORS CHECK
+            if (isset($vends) && $vends->count() > 0) {
+                
+                // REDIRECT TO MAIN CATEGORIES TABLE WITH ERROR MESSAGE
+                return redirect()->route('admin.main.cates')->with([
+                    'error' => 'It\'s not allowed to delete this main category'
+                ]);
+            }
+
+            // DELETE MAIN CATEGORY IMAGE FROM SERVER
+            deleteFile($mainCate->photo);
+
+            // DATABASE MAIN CATEGORY DELETE STATEMENT
+            $mainCate->delete();
+
+            // REDIRECT TO MAIN CATEGORIES TABLE WITH SUCCESS MESSAGE
+            return redirect()->route('admin.main.cates')->with([
+                'success' => 'Deleted Successfully'
+            ]);
+
+        } catch (\Throwable $th) {
+            
+            // REDIRECT TO MAIN CATEGORIES TABLE WITH ERROR MESSAGE
+            return redirect()->route('admin.main.cates')->with([
+                'error' => 'Something went terribly wrong'
+            ]);
+
+        }
+
+    }
+
 }
