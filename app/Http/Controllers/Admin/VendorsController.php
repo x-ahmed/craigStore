@@ -183,7 +183,143 @@ class VendorsController extends Controller
     // UPDATE VENDOR EDIT FORM DATA
     public function update(VendorRequest $request, $vendor_id)
     {
-        return $request;
+
+        try {
+
+            // DATABASE VENDOR OF A SPECIFIC ID
+            $vend = Vendor::find($vendor_id);
+            
+            // DATABASE VENDOR EXISTANCE CHECK
+            if (!$vend) {
+                
+                // REDIRECT TO VENFORS TABLE WITH ERROR MESSAGE
+                return redirect()->route('admin.vendors')->with([
+                    'error' => 'No such vendor'
+                ]);
+            }
+            
+            // READ ONLY INPUT IS CHANGED CHECK
+            if (
+                $request->input('vend-show-addr') == null ||
+                $request->input('vend-show-addr') !== $vend->address
+            ) {
+
+                // REDIRECT TO VENDORS TABLE WITH ERROR MESSAGE
+                return redirect()->route('admin.vendors')->with([
+                    'error' => 'Something went terribly wrong'
+                ]);
+            }
+
+            // START DATABASE TRANSACTIONS
+            DB::beginTransaction();
+
+            // REQUEST LOGO CHECK
+            if ($request->has('vend_logo')) {
+
+                // CHECK VENDOR EXISTANCE IN DATABASE
+                if ($vend) {
+                        
+                    // DELETE THE OLD VENDOR LOGO FROM SERVER FOLDER
+                    deleteFile($vend->logo);
+                }
+
+                // HELPER UPLOAD FILE METHOD
+                $vendLogo = uploadFile(
+                    'vendors',              // SERVER FOLDER WHERE TO UPLOAD
+                    $request->vend_logo     // FILE NAME WHICH TO STORE
+                );
+
+                // DATABASE UPDATE NEW LOGO STATEMENT
+                $vend->update([
+                    'logo' => $vendLogo
+                ]);
+                
+            }
+
+            // ANY INPUT VALUE NOT EQUAL DATABASE VALUE CHECK
+            if (
+                $request->input('vend-name') !== $vend->name ||
+                $request->input('vend-mobi') !== $vend->mobile ||
+                intval($request->input('vend-cate')) !== $vend->cate_id ||
+                $request->input('vend-mail') !== $vend->email ||
+                intval($request->input('vend-stat')) !== $vend->status ||
+                $request->input('vend-addr') !== $vend->address ||
+                $request->has('vend-pass')
+            ) {
+
+                // ADDRESS CHANGED CHECK
+                if (
+                    $request->input('vend-addr') !== null &&
+                    $request->input('vend-addr') !== $vend->address
+                ) {
+
+                    // DATABASE ADDRESS UPDATE STATEMENT
+                    $vend->update([
+                        'address' => $request->input('vend-addr')
+                    ]);
+                    
+                }
+
+                // ADDRESS CHANGED CHECK
+                if (
+                    $request->input('vend-pass') !== null
+                ) {
+
+                    // DATABASE ADDRESS UPDATE STATEMENT
+                    $vend->update([
+                        'password'  => $request->input('vend-pass')
+                    ]);
+                    
+                }
+
+                // REQUEST NOT ACTIVE CHECK
+                if (!$request->has('vend-stat')) {
+                    
+                    $vendStat = array_merge(    // CONVERT REQUEST TO ARRAY & ADD DEACTIVATION VALUE
+                        $request->all(),        // REQUEST AS AN ARRAY
+                        [
+                            'vend-stat' => 0    // DEACTIVATION KEY & VALUE
+                        ]
+                    )['vend-stat'];             // DEACTIVATION VALUE RETRIEVEMENT
+                } else {
+
+                    // CONVERT DEFAULT ACTIVE STRING VALUE TO INTEGER
+                    $vendStat = intval(
+                        $request->input('vend-stat')
+                    );
+                }
+
+                // DATABASE NEW EDITED VALUES UPDATE STATEMENT
+                $vend->update([
+                    'name'      => $request->input('vend-name'),
+                    'mobile'    => $request->input('vend-mobi'),
+                    'cate_id'   => intval($request->input('vend-cate')),
+                    'email'     => $request->input('vend-mail'),
+                    'status'    => $vendStat
+                ]);
+
+            }
+
+            // COMMIT DATABASE CHANGES
+            DB::commit();
+
+            // REDIRCT TO VENDORS TABLE WITH SUCCESS MESSAGE
+            return redirect()->route('admin.vendors')->with([
+                'success' => 'Updated Successfully'
+            ]);
+
+        } catch (\Throwable $th) {
+
+            // DATABASE ROLL-BACK
+            DB::rollback();
+
+            // REDIRECT TO VENDORS TABLE WITH ERROR MESSAGE
+            return redirect()->route('admin.vendors')->with([
+                'error' => 'Something went terribly wrong'
+            ]);
+
+        }
+
     }
 
     // DELETE VENDOR TABLE ROW

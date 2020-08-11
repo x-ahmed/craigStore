@@ -25,15 +25,23 @@ class VendorRequest extends FormRequest
     {
         return [
             // RULES FOR VENDORS CREATION FORM
-            'vend-name' => 'required|string|max:100',                       // VENDOR NAME INPUT
-            'vend-stat' => 'in:0,1',                                        // VENDOR STATUS CHECK INPUT
-            // 'vend-mail' => 'sometimes|nullable|email',                      // VENDOR EMAIL INPUT
-            'vend-mail' => 'required|unique:vendors,email|email',           // VENDOR EMAIL INPUT
-            'vend-cate' => 'required|exists:main_cates,id',                 // VENDOR CATEGORY SELECT INPUT
-            'vend_logo' => 'required_without:edit|mimes:jpg,jpeg,png',      // VENDOR LOGO IMAGE INPUT
-            'vend-mobi' => 'required|unique:vendors,mobile|max:14|regex:/(0)[0-9]/|not_regex:/[a-z]/|min:9',   // VENDOR MOBILE INPUT
-            'vend-addr' => 'required_without:edit|string|max:500',          // VENDOR ADDRESS INPUT
-            'vend-pass' => 'required_without:edit|string|min:6',            // VENDOR PASSWORD INPUT
+            'vend-name' => 'required|string|max:100',                           // VENDOR NAME INPUT
+            'vend-stat' => 'in:0,1',                                            // VENDOR STATUS CHECK INPUT
+            // 'vend-mail' => 'sometimes|nullable|email',                       // VENDOR EMAIL INPUT
+            'vend-mail' => 'required|email|unique:vendors,email,' .$this->edit,   // VENDOR EMAIL INPUT
+            'vend-cate' => 'required|exists:main_cates,id',                     // VENDOR CATEGORY SELECT INPUT
+            'vend_logo' => 'required_without:edit|mimes:jpg,jpeg,png',          // VENDOR LOGO IMAGE INPUT
+            // 'vend-mobi' => 'required|max:14|regex:/(0)[0-9]/|not_regex:/[a-z]/|min:9|unique:vendors,mobile,' .$this->id,   // VENDOR MOBILE INPUT
+            'vend-mobi' => [
+                'required',
+                'max:14',
+                'regex:/(0)[0-9]/',
+                'not_regex:/[a-z]/',
+                'min:9',
+                'unique:vendors,mobile,' .$this->edit   // AS THE HIDDEN INPUT IS NAMED EDIT AND HAS THE ID VALUE
+            ],   // VENDOR MOBILE INPUT
+            'vend-addr' => 'required_without:edit|string|nullable|max:500',     // VENDOR ADDRESS INPUT
+            'vend-pass' => 'required_without:edit|string|nullable|min:6',       // VENDOR PASSWORD INPUT
         ];
     }
 
@@ -64,7 +72,7 @@ class VendorRequest extends FormRequest
             'vend_logo.required_without'    => 'Please upload the vendor\'s logo',              // VENDOR LOGO IMAGE INPUT REQUIRED WITHOUT MESSAGE
             'vend_logo.mimes'               => 'Only "jpg", "jpeg", & "png" are available',     // VENDOR LOGO IMAGE INPUT MIMES MESSAGE
 
-            'vend-mobi.required'    => 'Please enter a valid number',               // VENDOR MOBILE INPUT REQUIRED MESSAGE
+            'vend-mobi.required'    => 'Please enter a phone number',               // VENDOR MOBILE INPUT REQUIRED MESSAGE
             'vend-mobi.unique'      => 'Already registered try another one',        // VENDOR MOBILE INPUT UNIQUE MESSAGE
             'vend-mobi.max'         => 'Invalid mobile number',                     // VENDOR MOBILE INPUT MAX MESSAGE
             'vend-mobi.regex'       => 'Invalid mobile number',                     // VENDOR MOBILE INPUT REGEX MESSAGE

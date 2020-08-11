@@ -280,6 +280,7 @@
                                                             class="form-control form-control"
                                                             id="pac-input"
                                                             name="vend-addr"
+                                                            value="{{old('address', $vend->address)}}"
                                                             placeholder="نعديل عنوان المتجر من هنا" />
                                                         
                                                     </div>
