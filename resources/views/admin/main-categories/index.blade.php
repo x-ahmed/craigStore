@@ -112,7 +112,13 @@
                                                                 href="{{route('admin.main.cate.status', $mainCate->id)}}"
                                                                 class="btn btn-outline-warning btn-min-width box-shadow-3 mr-1 mb-1">
                                                             
-                                                                <span>تغير الحاله</span>
+                                                                <span>
+                                                                    @if ($mainCate->status === 1)
+                                                                        الغاء تفعيل
+                                                                    @else
+                                                                        تفعيل
+                                                                    @endif
+                                                                </span>
                                                             </a>
 
                                                             <a

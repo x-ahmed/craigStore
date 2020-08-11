@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Observers\MainCateObserver;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
@@ -38,6 +39,15 @@ class MainCate extends Model
         'created_at',
         'updated_at',
     ];
+
+    // OVERRIDE MODEL "boot()" METHOD FOR OBSERVER
+    protected static function boot()
+    {
+        parent::boot();
+
+        // BIND RELATIONSHIP OF "MainCate" MODEL WITH "MainCateObserver" OBSERVER
+        MainCate::observe(MainCateObserver::class);
+    }
 
     // LOCAL ACTIVE SCOPE
     public function scopeActive($query){
