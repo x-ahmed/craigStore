@@ -449,4 +449,36 @@ class MainCategoriesController extends Controller
 
     }
 
+    // CHANGE MAIN CATEGORY STATUS
+    public function changeStatus($mainCateID)
+    {
+        // try {
+            
+        // } catch (\Throwable $th) {
+            
+        //     return redirect()->route('admin.main.cates')->with([
+        //         'error' => 'Something went terribly wrong'
+        //     ]);
+        // }
+
+        $mainCate = MainCate::find($mainCateID);
+
+        if (!$mainCate) {
+            
+            return redirect()->route('admin.main.cates')->with([
+                'error' => 'No such main category'
+            ]);
+        }
+
+        $mainCateStat = ($mainCate->status === 0)? 1: 0;
+
+        $mainCate->update([
+            'status' => $mainCateStat
+        ]);
+
+        return redirect()->route('admin.main.cates')->with([
+            'success' => 'Stutus changed successfully'
+        ]);
+    }
+
 }

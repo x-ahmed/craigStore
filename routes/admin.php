@@ -129,6 +129,12 @@ Route::group(   // AUTHORIZED ADMIN ROUTES GROUP
                     'delete/{cate_id}',
                     'MainCategoriesController@destroy'
                 )->name('admin.main.cate.delete');
+                
+                // STATUS ROUTE
+                Route::get(
+                    'status/{cate_id}',
+                    'MainCategoriesController@changeStatus'
+                )->name('admin.main.cate.status');
 
             }
         );
