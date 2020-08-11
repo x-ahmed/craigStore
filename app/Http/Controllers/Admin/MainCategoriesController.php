@@ -452,39 +452,40 @@ class MainCategoriesController extends Controller
     // CHANGE MAIN CATEGORY STATUS
     public function changeStatus($mainCateID)
     {
-        // try {
-            
-        // } catch (\Throwable $th) {
-            
-        //     return redirect()->route('admin.main.cates')->with([
-        //         'error' => 'Something went terribly wrong'
-        //     ]);
-        // }
+        try {
 
-        // DATABASE MAIN CATEGORY OF AN ID
-        $mainCate = MainCate::find($mainCateID);
+            // DATABASE MAIN CATEGORY OF AN ID
+            $mainCate = MainCate::find($mainCateID);
 
-        // DATABASE MAIN CATEGORY EXISTANCE CHECK
-        if (!$mainCate) {
-            
-            // REDIRECT TO MAIN CATEGORIES TABLE WITH ERROR MESSAGE
+            // DATABASE MAIN CATEGORY EXISTANCE CHECK
+            if (!$mainCate) {
+                
+                // REDIRECT TO MAIN CATEGORIES TABLE WITH ERROR MESSAGE
+                return redirect()->route('admin.main.cates')->with([
+                    'error' => 'No such main category'
+                ]);
+            }
+
+            // CHANGE STATUS FROM ZERO TO ONE OR FROM ONE TO ZERO
+            $mainCateStat = ($mainCate->status === 0)? 1: 0;
+
+            // DATABASE MAIN CATEGORY STATUS UPDATE STATEMENT
+            $mainCate->update([
+                'status' => $mainCateStat
+            ]);
+
+            // REDIRCT TO MAIN CATEGORIES TABLE WITH SUCCESS MESSAGE
             return redirect()->route('admin.main.cates')->with([
-                'error' => 'No such main category'
+                'success' => 'Stutus changed successfully'
+            ]);
+
+        } catch (\Throwable $th) {
+            
+            return redirect()->route('admin.main.cates')->with([
+                'error' => 'Something went terribly wrong'
             ]);
         }
 
-        // CHANGE STATUS FROM ZERO TO ONE OR FROM ONE TO ZERO
-        $mainCateStat = ($mainCate->status === 0)? 1: 0;
-
-        // DATABASE MAIN CATEGORY STATUS UPDATE STATEMENT
-        $mainCate->update([
-            'status' => $mainCateStat
-        ]);
-
-        // REDIRCT TO MAIN CATEGORIES TABLE WITH SUCCESS MESSAGE
-        return redirect()->route('admin.main.cates')->with([
-            'success' => 'Stutus changed successfully'
-        ]);
     }
 
 }
