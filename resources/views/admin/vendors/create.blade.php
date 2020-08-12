@@ -74,6 +74,18 @@
                                         enctype="multipart/form-data">
 
                                         @csrf
+
+                                        <input
+                                            type="hidden"
+                                            id="latitude"
+                                            name="latitude"
+                                            value="" />
+
+                                        <input
+                                            type="hidden"
+                                            id="longitude"
+                                            name="longitude"
+                                            value="" />
                                         
                                         <div class="form-body">
                                             <h4 class="form-section">

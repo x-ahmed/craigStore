@@ -28,6 +28,8 @@ class Vendor extends Model
         'email',
         'cate_id',
         'status',
+        'latitude',
+        'longitude',
         'created_at',
         'updated_at',
     ];
@@ -66,7 +68,9 @@ class Vendor extends Model
             'address',
             'email',
             'cate_id',
-            'status'
+            'status',
+            'latitude',
+            'longitude'
         );
     }
 

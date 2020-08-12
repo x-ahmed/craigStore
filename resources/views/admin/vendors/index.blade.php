@@ -89,7 +89,7 @@
                                                     <td class="text-center">{{$vendor->name}}</td>
                                                     <td class="text-center">
                                                         <img
-                                                            style="width: 100%; height:100%;"
+                                                            style="width: 100%; {{--height:100%;--}}"
                                                             src="{{$vendor->logo}}"
                                                             alt="Category Image" />
                                                     </td>

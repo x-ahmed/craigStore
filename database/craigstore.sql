@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 11, 2020 at 08:40 PM
+-- Generation Time: Aug 12, 2020 at 10:43 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.5
 
@@ -180,6 +180,8 @@ CREATE TABLE `vendors` (
   `email` varchar(100) NOT NULL COMMENT 'MUST BE UNIQUE FOR LOGIN',
   `cate_id` int(11) UNSIGNED NOT NULL COMMENT 'RELATED CATEGORY AS FOREIGN KEY',
   `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'VENDOR STATUS AS 0=>PENDING&1=>ACTIVE',
+  `latitude` text DEFAULT NULL COMMENT 'address latitude from google maps',
+  `longitude` text DEFAULT NULL COMMENT 'address longitude from google maps',
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='VENDORS TABLE';
@@ -188,9 +190,9 @@ CREATE TABLE `vendors` (
 -- Dumping data for table `vendors`
 --
 
-INSERT INTO `vendors` (`id`, `name`, `logo`, `mobile`, `password`, `address`, `email`, `cate_id`, `status`, `created_at`, `updated_at`) VALUES
-(2, 'AhMed SaLah', 'images/vendors/7JyEw59A06E5E7XXrGpYQDeQl0CEtaSYbMtjZ3UD.png', '01068966635', '$2y$10$ynybR1.TZHlzEfF4WYo2ruJymX8JPDeXeW.g4cw393BWRrq34uSpy', 'cairo', 'ahmed@gmail.com', 58, 1, '2020-08-08 02:19:23', '2020-08-11 14:13:25'),
-(17, 'mohamed', 'images/vendors/uTBqCeDFxd9iToXFpGqVadjtxPb0rCaSMVgfgeII.png', '01024546668', '$2y$10$HxbywSrp7ZJlbAs0YIOqceYj9B9gIixP4OfATnfcqGENSfuB0qhYu', 'zayed', 'sd@gmail.com', 60, 1, '2020-08-10 21:30:37', '2020-08-10 23:29:03');
+INSERT INTO `vendors` (`id`, `name`, `logo`, `mobile`, `password`, `address`, `email`, `cate_id`, `status`, `latitude`, `longitude`, `created_at`, `updated_at`) VALUES
+(2, 'AhMed SaLah', 'images/vendors/7JyEw59A06E5E7XXrGpYQDeQl0CEtaSYbMtjZ3UD.png', '01068966635', '$2y$10$ynybR1.TZHlzEfF4WYo2ruJymX8JPDeXeW.g4cw393BWRrq34uSpy', 'cairo', 'ahmed@gmail.com', 58, 1, NULL, NULL, '2020-08-08 02:19:23', '2020-08-11 18:49:53'),
+(17, 'mohamed', 'images/vendors/uTBqCeDFxd9iToXFpGqVadjtxPb0rCaSMVgfgeII.png', '01024546668', '$2y$10$HxbywSrp7ZJlbAs0YIOqceYj9B9gIixP4OfATnfcqGENSfuB0qhYu', 'zayed', 'sd@gmail.com', 60, 1, NULL, NULL, '2020-08-10 21:30:37', '2020-08-11 18:49:51');
 
 --
 -- Indexes for dumped tables
@@ -291,7 +293,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `vendors`
 --
 ALTER TABLE `vendors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -93,6 +93,8 @@ class VendorsController extends Controller
                     'address'   => $request->input('vend-addr'),     // REQUEST VENDOR MOBILE
                     'logo'      => $vendLogo,                        // REQUEST VENDOR LOGO
                     'password'  => $request->input('vend-pass'),     // REQUEST VENDOR PASSWORD
+                    'latitude'  => $request->input('latitude'),      // REQUEST VENDOR LATITUDE
+                    'longitude' => $request->input('longitude')      // REQUEST VENDOR LONGITUDE
                 ]);
 
                 // DATABASE NEW VENDOR CREATED CHECK
@@ -255,7 +257,9 @@ class VendorsController extends Controller
 
                     // DATABASE ADDRESS UPDATE STATEMENT
                     $vend->update([
-                        'address' => $request->input('vend-addr')
+                        'latitude'  => $request->input('latitude'),     // REQUEST VENDOR LATITUDE
+                        'longitude' => $request->input('longitude'),    // REQUEST VENDOR LONGITUDE
+                        'address' => $request->input('vend-addr')       // REQUEST VENDOR ADDRESS NAME
                     ]);
                     
                 }
@@ -267,7 +271,7 @@ class VendorsController extends Controller
 
                     // DATABASE ADDRESS UPDATE STATEMENT
                     $vend->update([
-                        'password'  => $request->input('vend-pass')
+                        'password'  => $request->input('vend-pass')     // REQUEST VENDOR PASSWORD
                     ]);
                     
                 }
@@ -291,11 +295,11 @@ class VendorsController extends Controller
 
                 // DATABASE NEW EDITED VALUES UPDATE STATEMENT
                 $vend->update([
-                    'name'      => $request->input('vend-name'),
-                    'mobile'    => $request->input('vend-mobi'),
-                    'cate_id'   => intval($request->input('vend-cate')),
-                    'email'     => $request->input('vend-mail'),
-                    'status'    => $vendStat
+                    'name'      => $request->input('vend-name'),            // REQUEST VENDOR NAME
+                    'mobile'    => $request->input('vend-mobi'),            // REQUEST VENDOR MOBILE
+                    'cate_id'   => intval($request->input('vend-cate')),    // REQUEST VENDOR MAIN CATEGORY
+                    'email'     => $request->input('vend-mail'),            // REQUEST VENDOR EMAIL
+                    'status'    => $vendStat                                // REQUEST VENDOR STATUS
                 ]);
 
             }

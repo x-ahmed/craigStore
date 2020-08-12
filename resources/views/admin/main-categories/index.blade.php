@@ -90,7 +90,7 @@
                                                     {{-- <td class="text-center">{{getDefaultLang()}}</td> --}}
                                                     <td class="text-center">
                                                         <img
-                                                            style="width: 100%; height:100%;"
+                                                            style="width: 100%; {{--height:100%;--}}"
                                                             src="{{$mainCate->photo}}"
                                                             alt="Category Image" />
                                                     </td>
