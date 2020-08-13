@@ -47,7 +47,7 @@
                             <a href="">
                                    <i class="la la-group"></i>
                                    <span class="menu-title" data-i18n="nav.dash.main">الاقسام الرئيسيه</span>
-                            <span class="badge badge badge-danger badge-pill float-right mr-2">{{App\Models\MainCate::where('trans_of',0)->count()}}</span>
+                            <span class="badge badge badge-danger badge-pill float-right mr-2">{{App\Models\MainCate::defLangCate()->count()}}</span>
                             </a>
                             <ul class="menu-content">
                                    <li class="active">
@@ -61,6 +61,28 @@
                                                  class="menu-item"
                                                  href="{{route('admin.main.cate.create')}}"
                                                  data-i18n="nav.dash.crypto">أضافة قسم جديد</a>
+                                   </li>
+                            </ul>
+                     </li>
+                     
+                     <li class="nav-item">
+                            <a href="">
+                                   <i class="la la-group"></i>
+                                   <span class="menu-title" data-i18n="nav.dash.main">الاقسام الفرعيه</span>
+                            <span class="badge badge badge-warning badge-pill float-right mr-2">{{App\Models\SubCate::count()}}</span>
+                            </a>
+                            <ul class="menu-content">
+                                   <li class="active">
+                                          <a
+                                                 class="menu-item"
+                                                 href="{{route('admin.sub.cates')}}"
+                                                 data-i18n="nav.dash.ecommerce">عرض الاقسام الفرعيه</a>
+                                   </li>
+                                   <li>
+                                          <a
+                                                 class="menu-item"
+                                                 href="{{route('admin.sub.cate.create')}}"
+                                                 data-i18n="nav.dash.crypto">أضافة قسم فرعي</a>
                                    </li>
                             </ul>
                      </li>

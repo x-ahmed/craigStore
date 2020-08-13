@@ -139,6 +139,57 @@ Route::group(   // AUTHORIZED ADMIN ROUTES GROUP
             }
         );
         ####################################### END MAIN CATEGORIES ROUTES #######################################
+        
+        ####################################### START SUB CATEGORIES ROUTES #######################################
+        Route::group(   // SUB CATEGORIES ROUTES GROUP
+            [
+                'prefix' => 'sub-categories'       // URL PREFIX
+            ],
+            function () {
+
+                // MAIN TABLE ROUTE
+                Route::get(
+                    '/',
+                    'SubCategoriesController@index'
+                )->name('admin.sub.cates');
+
+                // CREATE FORM ROUTE
+                Route::get(
+                    'create',
+                    'SubCategoriesController@create'
+                )->name('admin.sub.cate.create');
+                // SAVE FORM ROUTE
+                Route::post(
+                    'save',
+                    'SubCategoriesController@save'
+                )->name('admin.sub.cate.save');
+
+                // EDIT FORM ROUTE
+                Route::get(
+                    'edit/{cate_id}',
+                    'SubCategoriesController@edit'
+                )->name('admin.sub.cate.edit');
+                // UPDATE FORM ROUTE
+                Route::post(
+                    'update/{cate_id}',
+                    'SubCategoriesController@update'
+                )->name('admin.sub.cate.update');
+
+                // DELETE ROUTE
+                Route::get(
+                    'delete/{cate_id}',
+                    'SubCategoriesController@destroy'
+                )->name('admin.sub.cate.delete');
+                
+                // STATUS ROUTE
+                Route::get(
+                    'status/{cate_id}',
+                    'SubCategoriesController@changeStatus'
+                )->name('admin.sub.cate.status');
+
+            }
+        );
+        ####################################### END SUB CATEGORIES ROUTES #######################################
 
         ####################################### START VENDORS ROUTES #######################################
         Route::group(   // VENDORS ROUTES GROUP

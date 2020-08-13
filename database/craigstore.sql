@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 12, 2020 at 10:43 PM
+-- Generation Time: Aug 13, 2020 at 04:33 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.5
 
@@ -150,6 +150,26 @@ CREATE TABLE `password_resets` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `sub_cates`
+--
+
+CREATE TABLE `sub_cates` (
+  `id` int(11) NOT NULL,
+  `parent_id` int(11) NOT NULL DEFAULT 0 COMMENT 'FOREIGN KEY OF SUB RELATED CATEGORIES',
+  `cate_id` int(10) UNSIGNED NOT NULL COMMENT 'FOREIGN KEY OF RELATED MAIN CATEGORY',
+  `name` varchar(150) NOT NULL,
+  `slug` varchar(150) DEFAULT NULL COMMENT 'FOR SEO',
+  `photo` varchar(150) DEFAULT NULL,
+  `trans_lang` varchar(10) NOT NULL COMMENT 'TRANSLATION LANGUAGE',
+  `trans_of` int(11) UNSIGNED NOT NULL COMMENT 'FOREIGN KEY OF TRANSLATED CATEGORY',
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1 FOR ACTIVE & 0 FOR PENDING',
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='SUB CATEGORIES TABLE';
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -235,6 +255,12 @@ ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
 
 --
+-- Indexes for table `sub_cates`
+--
+ALTER TABLE `sub_cates`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -284,6 +310,12 @@ ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `sub_cates`
+--
+ALTER TABLE `sub_cates`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
@@ -293,7 +325,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `vendors`
 --
 ALTER TABLE `vendors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

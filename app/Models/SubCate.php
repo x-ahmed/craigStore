@@ -2,17 +2,16 @@
 
 namespace App\Models;
 
-use App\Observers\MainCateObserver;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class MainCate extends Model
+class SubCate extends Model
 {
     // NOTIFICATION CLASS
     use Notifiable;
 
     // MODEL TABLE NAME IN DB;
-    protected $table = 'main_cates';
+    protected $table = 'sub_cates';
 
     /**
      * The attributes that are mass assignable.
@@ -22,6 +21,8 @@ class MainCate extends Model
     protected $fillable = [
         'trans_lang',
         'trans_of',
+        'parent_id',
+        'cate_id',
         'name',
         'slug',
         'photo',
@@ -36,6 +37,7 @@ class MainCate extends Model
      * @var array
      */
     protected $hidden = [
+        'cate_id',
         'created_at',
         'updated_at',
     ];
@@ -45,8 +47,8 @@ class MainCate extends Model
     {
         parent::boot();
 
-        // BIND RELATIONSHIP OF "MainCate" MODEL WITH "MainCateObserver" OBSERVER
-        MainCate::observe(MainCateObserver::class);
+        // BIND RELATIONSHIP OF "SubCate" MODEL WITH "SubCateObserver" OBSERVER
+        SubCate::observe(SubCateObserver::class);
     }
 
     // LOCAL ACTIVE SCOPE
@@ -63,6 +65,8 @@ class MainCate extends Model
     {
         return $query->select(
             'id',
+            'parent_id',
+            'cate_id',
             'trans_lang',
             'trans_of',
             'name',
@@ -96,24 +100,11 @@ class MainCate extends Model
         return ($val != null)? asset('assets/' .$val): '';
     }
 
-    // // MAIN CATEGORY TRANSLATION LANGUAGE ACCESSOR
-    // public function getTransLangAttribute($val)
-    // {
-    //     // CHECK VALUE IS ARABIC
-    //     if ($val == 'AR') {
-    //         return 'العربيه';
-    //     }
-    //     // CHECK VALUE IS ENGLISH
-    //     else if ($val == 'EN') {
-    //         return 'English';
-    //     }
-    // }
-
     // MAIN CATEGORY NAME MUTATOR FOR FIRST LETTER UPPERCASE(CREATE FORM)
 
     // MAIN CATEGORU TRANSLATION LANGUAGE MUTATOR FOR UPPERCASE(CREATE FORM)
 
-    // TRANSLATED CATEGORIES RELATIONSHIP WITH THEIR MAIN CATEGORY
+    // TRANSLATED CATEGORIES RELATIONSHIP WITH THEIR SUB CATEGORY
     public function trans_cates()
     {
         // RETURN ONE OR MORE TRANSLATED CATEGORY
@@ -124,10 +115,10 @@ class MainCate extends Model
         );
     }
 
-    // MAIN CATEGORY RELATIONSHIP WITH THEIR RELATED TRANSLATED CATEGORIES
+    // SUB CATEGORY RELATIONSHIP WITH THEIR RELATED TRANSLATED CATEGORIES
     public function def_cate()
     {
-        // RETURN THE ONLY MAIN CATEGORY OF THESE TRANSLATED ONES
+        // RETURN THE ONLY SUB CATEGORY OF THESE TRANSLATED ONES
         return $this->belongsTo(
             self::class,
             'translation_of',
@@ -135,7 +126,7 @@ class MainCate extends Model
         );
     }
 
-    // MAIN CATEGORIES RELATIONSHIP WITH VENDORS
+    // SUB CATEGORIES RELATIONSHIP WITH VENDORS
     public function vendors()
     {
         // RETURN THE ONE OR MORE RELATED VENDORS
