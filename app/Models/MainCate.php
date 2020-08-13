@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Observers\MainCateObserver;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use App\Models\SubCate;
 
 class MainCate extends Model
 {
@@ -141,6 +142,17 @@ class MainCate extends Model
         // RETURN THE ONE OR MORE RELATED VENDORS
         return $this->hasMany(
             Vendor::class,
+            'cate_id',
+            'id'
+        );
+    }
+
+    // MAIN CATEGORY RELATIONSHIP WITH SUB CATEGORIES
+    public function subCates()
+    {
+        // RETURN THE ONE OR MORE RELATED SUB CATEGORIES
+        return $this->hasMany(
+            SubCate::class,
             'cate_id',
             'id'
         );

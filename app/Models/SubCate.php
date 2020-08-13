@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Observers\SubCateObserver;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use App\Models\MainCate;
 
 class SubCate extends Model
 {
@@ -104,34 +106,45 @@ class SubCate extends Model
 
     // MAIN CATEGORU TRANSLATION LANGUAGE MUTATOR FOR UPPERCASE(CREATE FORM)
 
-    // TRANSLATED CATEGORIES RELATIONSHIP WITH THEIR SUB CATEGORY
-    public function trans_cates()
-    {
-        // RETURN ONE OR MORE TRANSLATED CATEGORY
-        return $this->hasMany(
-            self::class,
-            'trans_of',
-            'id'
-        );
-    }
+    // // TRANSLATED CATEGORIES RELATIONSHIP WITH THEIR SUB CATEGORY
+    // public function trans_cates()
+    // {
+    //     // RETURN ONE OR MORE TRANSLATED CATEGORY
+    //     return $this->hasMany(
+    //         self::class,
+    //         'trans_of',
+    //         'id'
+    //     );
+    // }
 
-    // SUB CATEGORY RELATIONSHIP WITH THEIR RELATED TRANSLATED CATEGORIES
-    public function def_cate()
+    // // SUB CATEGORY RELATIONSHIP WITH THEIR RELATED TRANSLATED CATEGORIES
+    // public function def_cate()
+    // {
+    //     // RETURN THE ONLY SUB CATEGORY OF THESE TRANSLATED ONES
+    //     return $this->belongsTo(
+    //         self::class,
+    //         'translation_of',
+    //         'id'
+    //     );
+    // }
+
+    // // SUB CATEGORIES RELATIONSHIP WITH VENDORS
+    // public function vendors()
+    // {
+    //     // RETURN THE ONE OR MORE RELATED VENDORS
+    //     return $this->hasMany(
+    //         Vendor::class,
+    //         'cate_id',
+    //         'id'
+    //     );
+    // }
+
+    // SUB CATEGORY RELATIONSHIP WITH MAIN CATEGORY
+    public function mainCate()
     {
-        // RETURN THE ONLY SUB CATEGORY OF THESE TRANSLATED ONES
+        // RETURN THE MAIN CATEGORY RELATED TO THIS SUB CATEGORY
         return $this->belongsTo(
-            self::class,
-            'translation_of',
-            'id'
-        );
-    }
-
-    // SUB CATEGORIES RELATIONSHIP WITH VENDORS
-    public function vendors()
-    {
-        // RETURN THE ONE OR MORE RELATED VENDORS
-        return $this->hasMany(
-            Vendor::class,
+            MainCate::class,
             'cate_id',
             'id'
         );
