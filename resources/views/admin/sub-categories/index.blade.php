@@ -72,7 +72,7 @@
                                         <tr>
                                             <th class="text-center">الاسم</th>
                                             <th class="text-center">اللغه</th>
-                                            {{-- <th class="text-center">الاختصار</th> --}}
+                                            <th class="text-center">القسم الرئيسى</th>
                                             <th class="text-center">الصوره</th>
                                             <th class="text-center">الحالة</th>
                                             <th class="text-center">الإجراءات</th>
@@ -86,9 +86,8 @@
                                             
                                                 <tr>
                                                     <td class="text-center">{{$subCate->name}}</td>
-                                                    {{-- <td class="text-center">{{getLanguageName($subCate->trans_lang)}}</td> --}}
                                                     <td class="text-center">{{__('global.' .$subCate->trans_lang)}}</td>
-                                                    {{-- <td class="text-center">{{getDefaultLang()}}</td> --}}
+                                                    <td class="text-center">{{$subCate->mainCate->name}}</td>
                                                     <td class="text-center">
                                                         <img
                                                             style="width: 100%; {{--height:100%;--}}"

@@ -102,10 +102,6 @@ class SubCate extends Model
         return ($val != null)? asset('assets/' .$val): '';
     }
 
-    // MAIN CATEGORY NAME MUTATOR FOR FIRST LETTER UPPERCASE(CREATE FORM)
-
-    // MAIN CATEGORU TRANSLATION LANGUAGE MUTATOR FOR UPPERCASE(CREATE FORM)
-
     // // TRANSLATED CATEGORIES RELATIONSHIP WITH THEIR SUB CATEGORY
     // public function trans_cates()
     // {

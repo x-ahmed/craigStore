@@ -69,7 +69,7 @@
                             <a href="">
                                    <i class="la la-group"></i>
                                    <span class="menu-title" data-i18n="nav.dash.main">الاقسام الفرعيه</span>
-                            <span class="badge badge badge-warning badge-pill float-right mr-2">{{App\Models\SubCate::count()}}</span>
+                            <span class="badge badge badge-warning badge-pill float-right mr-2">{{App\Models\SubCate::defLangCate()->count()}}</span>
                             </a>
                             <ul class="menu-content">
                                    <li class="active">

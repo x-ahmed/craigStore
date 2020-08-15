@@ -62,6 +62,13 @@ return [
             'visibility'    => 'public',
         ],
         
+        'sub_cates' => [   // SUB-CATEGORIES IMAGES
+            'driver'        => 'local',
+            'root'          => base_path(). '/assets/images/sub_cates/',
+            'url'           => env('APP_URL').'/public',
+            'visibility'    => 'public',
+        ],
+        
         'vendors' => [      // VENDORS IMAGES
             'driver'        => 'local',
             'root'          => base_path(). '/assets/images/vendors/',
